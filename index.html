@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="canonical" href="https://glitch-hello-website.glitch.me/" />
+    <meta name="description" content="A simple website, built with Glitch. Remix it to get your own."/>
+    <meta name="robots" content="index,follow" />
+    <meta property="og:title" content="Hello World!" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://glitch-hello-website.glitch.me/" />
+    <meta property="og:description" content="A simple website, built with Glitch. Remix it to get your own."/>
+    <meta property="og:image" content="https://cdn.glitch.com/605e2a51-d45f-4d87-a285-9410ad350515%2Fhello-website-social.png?v=1616712748147"/>
+    <meta name="twitter:card" content="summary" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Namma Chennai Guide</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 26px;
+            background-image: url('website back 3.jpg');
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+        }
+        h2 {
+            text-align: center;
+            margin-top: 50px;
+            color: white;
+            text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
+        }
+        button {
+            background-color: #04AA6D;
+            font-size: 17px;
+            color: white;
+            padding: 15px 20px;
+            border: none;
+            cursor: pointer;
+            width: 50%;
+            margin: 30px auto;
+            display: block;
+        }
+        button:hover {
+            opacity: 0.9;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover, .close:focus {
+            color: red;
+            cursor: pointer;
+        }
+        input[type="password"], input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        .error {
+            color: red;
+        }
+        img {
+            display: block;
+            margin: 50px auto;
+            width: 200px;
+            height: 200px;
+            border: 2px solid #111211;
+            border-radius: 30px;
+        }
+    </style>
+</head>
+<body>
+
+    <img src="logo 1.jpg" alt="Namma Chennai Logo" style="display: block; margin: 50px auto; width: 200px;height: 200px; border: 2px solid #111211; border-radius: 30px;">
+
+    <h2>Welcome to Namma Chennai Guide</h2>
+
+    <button onclick="document.getElementById('signupModal').style.display='block'">Sign Up</button>
+    <button onclick="document.getElementById('loginModal').style.display='block'">Log In</button>
+    <button onclick="document.getElementById('aboutUsModal').style.display='block'">About Us</button>
+
+    <!-- Signup Modal -->
+    <div id="signupModal" class="modal">
+        <div class="modal-content">
+            <span onclick="document.getElementById('signupModal').style.display='none'" class="close">&times;</span>
+            <h2>Sign Up</h2>
+            <form id="signupForm" action="javascript:void(0);" method="post">
+                <p>Please fill in this form to create an account.</p>
+                <hr>
+                <label for="email"><b>Email</b></label>
+                <input type="text" placeholder="Enter Email" name="email" id="signupEmail" required>
+
+                <label for="psw"><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" name="psw" id="signupPassword" required>
+
+                <label for="psw-repeat"><b>Repeat Password</b></label>
+                <input type="password" placeholder="Repeat Password" name="psw-repeat" id="signupPasswordRepeat" required>
+                <div class="error" id="passwordError"></div>
+
+                <label>
+                    <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
+                </label>
+
+                <p>By creating an account you agree to our
+                    <a href="#" style="color:dodgerblue" onclick="document.getElementById('termsModal').style.display='block'">Terms & Conditions</a> and
+                    <a href="#" style="color:dodgerblue" onclick="document.getElementById('privacyModal').style.display='block'">Privacy Policy</a>.
+                </p>
+
+                <div class="clearfix">
+                    <button type="submit" class="signupbtn">Sign Up</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Terms and Conditions Modal -->
+    <div id="termsModal" class="modal terms-modal">
+        <span onclick="document.getElementById('termsModal').style.display='none'" class="close" title="Close Modal">&times;</span>
+        <div class="modal-content">
+            <div class="container">
+                <h2>Terms and Conditions for Namma Chennai Guide</h2>
+                <p>Welcome to Namma Chennai Guide! These terms and conditions outline the rules and regulations for the use of the Namma Chennai Guide website ("Website").</p>
+                <p>By accessing or using this Website, you agree to accept these terms and conditions. If you do not agree to all the terms and conditions stated on this page, please refrain from using the Website.</p>
+
+                <h3>1. License to Use</h3>
+                <p>1.1. Namma Chennai Guide grants you a non-exclusive, non-transferable, limited license to use the Website for personal, non-commercial purposes only.</p>
+                <p>1.2. You must be at least 13 years old to use the Website. By using the Website, you warrant that you are at least 13 years of age.</p>
+
+                <h3>2. Travel Recommendations</h3>
+                <p>2.1. Namma Chennai Guide uses your preferences, travel type, budget, and duration to suggest personalized itineraries for exploring Chennai.</p>
+                <p>2.2. While we aim to provide accurate recommendations, Namma Chennai Guide does not guarantee the completeness or accuracy of its travel suggestions.</p>
+
+                <h3>3. Privacy and Data Usage</h3>
+                <p>3.1. Namma Chennai Guide may collect and store personal information, such as your travel preferences, feedback, and contact details, to improve the service and user experience.</p>
+                <p>3.2. Your privacy is important to us. We will not sell, trade, or transfer your personal data to third parties without your consent, except as required by law.</p>
+                <p>3.3. For detailed information on how we handle your data, please refer to our Privacy Policy.</p>
+
+                <h3>4. User Responsibilities</h3>
+                <p>4.1. You are responsible for maintaining the confidentiality of your Namma Chennai Guide account and for all activities that occur under your account.</p>
+                <p>4.2. You agree not to use Namma Chennai Guide for any unlawful purposes or in a way that infringes upon the rights of others.</p>
+                <p>4.3. You agree not to interfere with or disrupt the Website's operations, servers, or networks connected to the Website.</p>
+
+                <h3>5. Limitation of Liability</h3>
+                <p>5.1. Namma Chennai Guide and its affiliates shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including but not limited to loss of profits, data, or use, arising out of or in connection with your use of the Website.</p>
+                <p>5.2. Namma Chennai Guide does not warrant that the Website will be uninterrupted, timely, secure, or error-free.</p>
+
+                <h3>6. Changes to Terms and Conditions</h3>
+                <p>6.1. Namma Chennai Guide reserves the right to modify these terms and conditions at any time. Updated terms will be posted on the Website, and your continued use of Namma Chennai Guide after any such changes constitutes your acceptance of the new terms.</p>
+
+                <h3>7. Governing Law</h3>
+                <p>7.1. These terms and conditions shall be governed by and construed in accordance with the laws of India, and any disputes arising under these terms shall be subject to the exclusive jurisdiction of the courts located in Chennai, Tamil Nadu.</p>
+
+                <h3>8. Contact Us</h3>
+                <p>8.1. If you have any questions about these terms and conditions, please contact us at <strong>Email:</strong> <a href="mailto:Kushijalan2007@gmail.com">Kushijalan2007@gmail.com</a></p>
+
+                <button type="button" onclick="document.getElementById('termsModal').style.display='none'" class="cancelbtn">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Privacy Policy Modal -->
+    <div id="privacyModal" class="modal terms-modal">
+        <span onclick="document.getElementById('privacyModal').style.display='none'" class="close" title="Close Modal">&times;</span>
+        <div class="modal-content">
+            <div class="container">
+                <h2>Privacy Policy for Namma Chennai Guide</h2>
+
+                <p>Welcome to Namma Chennai Guide! This Privacy Policy outlines how we collect, use, and safeguard your personal data when you use our website and services. By accessing or using our website, you agree to the practices described in this policy.</p>
+
+                <h3>1. Information We Collect</h3>
+                <p>1.1 <strong>Personal Data</strong><br>
+                    We may collect personal information that you voluntarily provide to us, including but not limited to:
+                    <ul>
+                        <li>Email address</li>
+                        <li>Your travel preferences</li>
+                        <li>Feedback or comments you provide</li>
+                        <li>Any other information you choose to share</li>
+                    </ul>
+                </p>
+                <p>1.2 <strong>Usage Data</strong><br>
+                    We may also collect information on how you interact with our website, such as:
+                    <ul>
+                        <li>Your IP address</li>
+                        <li>Browser type and version</li>
+                        <li>Pages you visit on our site</li>
+                        <li>Time and date of visits</li>
+                        <li>Time spent on pages</li>
+                        <li>Other diagnostic data</li>
+                    </ul>
+                </p>
+
+                <h3>2. Use of Your Information</h3>
+                <p>We use your information for the following purposes:
+                    <ul>
+                        <li>To provide and maintain our services</li>
+                        <li>To inform you about changes to our website or services</li>
+                        <li>To allow you to engage with interactive features of our site</li>
+                        <li>To offer customer support</li>
+                        <li>To gather data to improve our website and services</li>
+                        <li>To monitor and analyze usage</li>
+                        <li>To detect and prevent technical issues</li>
+                    </ul>
+                </p>
+
+                <h3>3. Data Storage and Security</h3>
+                <p>3.1 <strong>Data Retention</strong><br>
+                    We will retain your personal data only for as long as necessary to fulfill the purposes outlined in this Privacy Policy.</p>
+                <p>3.2 <strong>Data Security</strong><br>
+                    We prioritize the security of your personal data. Although we take reasonable measures to protect it, please note that no method of internet transmission or electronic storage is 100% secure. Therefore, we cannot guarantee absolute security.</p>
+
+                <h3>4. Sharing Your Information</h3>
+                <p>We do not sell or trade your personal information. However, we may share it with:
+                    <ul>
+                        <li>Service providers assisting with website operations</li>
+                        <li>Legal authorities when required by law</li>
+                    </ul>
+                </p>
+
+                <h3>5. Your Rights</h3>
+                <p>You have the right to:
+                    <ul>
+                        <li>Access your personal data</li>
+                        <li>Request corrections to your personal data</li>
+                        <li>Request the deletion of your personal data</li>
+                        <li>Object to or limit the processing of your personal data</li>
+                    </ul>
+                </p>
+
+                <h3>6. Changes to This Privacy Policy</h3>
+                <p>We may update this Privacy Policy periodically. Any changes will be posted on this page. Your continued use of our website after such changes will constitute your acknowledgment and acceptance of the modified Privacy Policy.</p>
+
+                <h3>7. Governing Law</h3>
+                <p>This Privacy Policy is governed by the laws of India. Any disputes arising will be subject to the exclusive jurisdiction of the courts in Chennai, Tamil Nadu.</p>
+
+                <h3>8. Contact Us</h3>
+                <p>If you have any questions about this Privacy Policy, please reach out to us at <strong>Email:</strong> <a href="mailto:Kushijalan2007@gmail.com">Kushijalan2007@gmail.com</a></p>
+
+                <button type="button" onclick="document.getElementById('privacyModal').style.display='none'" class="cancelbtn">Close</button>
+            </div>
+        </div>
+    </div>
+	<!-- Log In Modal -->
+<div id="loginModal" class="modal">
+    <div class="modal-content">
+        <span onclick="closeModal('loginModal')" class="close">&times;</span>
+        <h2>Log In</h2>
+        <form id="loginForm" action="javascript:void(0);" method="post">
+            <label for="email">Email:</label>
+            <input type="text" name="email" id="loginEmail" required>
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="loginPassword" required>
+            <div class="error" id="loginError"></div>
+            <button type="submit">Log In</button>
+        </form>
+    </div>
+</div>
+
+<!-- About Us Modal -->
+<div id="aboutUsModal" class="modal">
+    <div class="modal-content">
+        <span onclick="closeModal('aboutUsModal')" class="close">&times;</span>
+        <h2>About Us</h2>
+        <h3>Your Ultimate Guide to Chennai!</h3>
+
+        <p>Welcome to <strong>Namma Chennai Guide</strong>, your go-to platform for everything about Chennai! Whether you're a local looking for hidden gems or a visitor wanting to explore the city’s rich culture, food, and lifestyle, we’ve got you covered.</p>
+
+        <h4>Who We Are?</h4>
+        <p>We are passionate Chennaiites who love this city and want to showcase its beauty, heritage, and modern attractions. From food, iconic landmarks to offbeat experiences, we bring you the best Chennai has to offer.</p>
+
+        <h4>What We Do</h4>
+        <ul>
+            <li><strong>Local Insights</strong> – Discover the best places to explore.</li>
+            <li><strong>Travel & Lifestyle Tips</strong> – Get recommendations on must-visit places, hidden treasures.</li>
+        </ul>
+
+        <h4>Why Choose Us?</h4>
+        <p>We don’t just list places—we experience them! Our team personally explores and reviews every location, ensuring that our recommendations are genuine and helpful.</p>
+
+        <p><em>Because Chennai isn’t just a city—it’s an emotion!</em></p>
+    </div>
+</div>
+
+<script>
+    function closeModal(modalId) {
+        document.getElementById(modalId).style.display = 'none';
+    }
+
+    // Ensure buttons work to show modals
+    document.querySelector('button[onclick="document.getElementById(\'signupModal\').style.display=\'block\'"]').addEventListener('click', function() {
+        showModal('signupModal');
+    });
+    document.querySelector('button[onclick="document.getElementById(\'loginModal\').style.display=\'block\'"]').addEventListener('click', function() {
+        showModal('loginModal');
+    });
+    document.querySelector('button[onclick="document.getElementById(\'aboutUsModal\').style.display=\'block\'"]').addEventListener('click', function() {
+        showModal('aboutUsModal');
+    });
+
+    // For closing modal
+    function showModal(modalId) {
+        document.getElementById(modalId).style.display = 'block';
+    }
+</script>
+
+
+    <script>
+        // Simulated database for users
+        let usersDatabase = [];
+
+        // Strong password criteria function
+        function validatePassword(password) {
+            const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])[A-Za-z\d!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{8,}$/;
+            console.log("Password: ", password); // Debugging password value
+            const isValid = regex.test(password);
+            console.log("Password validation result: ", isValid); // Debugging validation result
+            return isValid;
+        }
+
+        // Handle sign-up form submission
+        document.getElementById('signupForm').onsubmit = function(event) {
+            event.preventDefault();
+
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+            const passwordRepeat = document.getElementById('signupPasswordRepeat').value;
+            const passwordError = document.getElementById('passwordError');
+
+            console.log("Signup Password: ", password); // Debugging signup password value
+
+            // Check if passwords match
+            if (password !== passwordRepeat) {
+                passwordError.textContent = 'Passwords do not match.';
+                return;
+            }
+
+            // Validate strong password criteria
+            if (!validatePassword(password)) {
+                passwordError.textContent = 'Password must be at least 8 characters long, contain one uppercase letter, one lowercase letter, one number, and one special character.';
+                return;
+            }
+
+            // Check if user already exists
+            if (usersDatabase.some(user => user.email === email)) {
+                passwordError.textContent = 'User with this email already exists.';
+                return;
+            }
+
+            // Save user in the simulated database
+            usersDatabase.push({ email: email, password: password });
+            passwordError.textContent = '';
+            alert('Sign up successful!');
+            document.getElementById('signupModal').style.display = 'none';
+        };
+
+        // Handle login form submission
+        document.getElementById('loginForm').onsubmit = function(event) {
+            event.preventDefault();
+
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            const loginError = document.getElementById('loginError');
+
+            // Check if the user exists and the password is correct
+            const user = usersDatabase.find(user => user.email === email && user.password === password);
+
+            if (user) {
+                loginError.textContent = '';
+                alert('Login successful!');
+                document.getElementById('loginModal').style.display = 'none';
+                window.location.href = 'homepage.html'; // Redirect to options page
+            } else {
+                loginError.textContent = 'Invalid email or password. Please sign up first if you have not.';
+            }
+        };
+
+        // Close modals when clicking outside of them
+        window.onclick = function(event) {
+            if (event.target === document.getElementById('loginModal')) {
+                document.getElementById('loginModal').style.display = "none";
+            } else if (event.target === document.getElementById('signupModal')) {
+                document.getElementById('signupModal').style.display = "none";
+            }
+        };
+    </script>
+</body>
+</html>

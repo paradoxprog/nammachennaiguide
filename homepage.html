@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Namma Chennai Guide</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin: auto;
+        }
+        select, button, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        #result {
+            text-align: left;
+            padding: 10px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2> Namma Chennai Guide</h2>
+	<h3>Explore Chennai - Personalized Itinerary</h3>
+	
+        
+        <label for="travelType">Travel Type:</label>
+        <select id="travelType">
+            <option value="solo">Solo</option>
+            <option value="family">Family</option>
+            <option value="friends">Friends</option>
+            <option value="couple">Couple</option>
+            <option value="business">Business</option>
+        </select>
+
+        <label for="interest">Interest:</label>
+        <select id="interest">
+            <option value="beaches">Beaches</option>
+            <option value="temples">Temples</option>
+            <option value="shopping">Shopping</option>
+            <option value="food">Food & Restaurants</option>
+            <option value="historical">Historical Sites</option>
+            <option value="nature">Nature & Parks</option>
+        </select>
+
+        <label for="budget">Budget:</label>
+        <select id="budget">
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+        </select>
+
+        <label for="days">Days of Travel:</label>
+        <select id="days">
+            <option value="1_day">1 Day</option>
+            <option value="2_days">2 Days</option>
+            <option value="3_days">3+ Days</option>
+        </select>
+
+        <button onclick="showItinerary()">Generate Itinerary</button>
+        <button onclick="viewOnMap()">View on Map</button>
+
+        <h3>Your Itinerary:</h3>
+        <div id="result"></div>
+
+        <h3>Feedback</h3>
+        <label for="rating">Rate your experience:</label>
+        <select id="rating">
+            <option value="5">Excellent (5)</option>
+            <option value="4">Good (4)</option>
+            <option value="3">Average (3)</option>
+            <option value="2">Poor (2)</option>
+            <option value="1">Very Poor (1)</option>
+        </select>
+
+        <label for="comments">Your Comments:</label>
+        <textarea id="comments" rows="4" placeholder="Share your experience..."></textarea>
+        <button onclick="submitFeedback()">Submit Feedback</button>
+
+        <p id="feedbackMessage" style="color: green;"></p>
+
+            </div>
+
+    <script>
+        const itineraries = {
+            beaches: { places: ["Marina Beach", "Elliot's Beach", "Mahabalipuram Beach", "Covelong Beach", "VGP Golden Beach", "Thiruvanmiyur Beach"] },
+            temples: { places: ["Kapaleeshwarar Temple", "Parthasarathy Temple", "Sri Ashtalakshmi Temple", "Vadapalani Murugan Temple", "Marundeeswarar Temple"] },
+            shopping: { places: ["Express Avenue Mall", "Phoenix MarketCity", "T. Nagar Shopping", "Pondy Bazaar", "Burma Bazaar"] },
+            food: { places: ["Murugan Idli Shop", "Sangeetha Veg Restaurant", "Dakshin at Crowne Plaza", "Saravana Bhavan", "Zuka Chennai"] },
+            historical: { places: ["Fort St. George", "Santhome Cathedral Basilica", "Vivekananda House", "Government Museum", "Ripon Building"] },
+            nature: { places: ["Guindy National Park", "Arignar Anna Zoological Park", "Semmozhi Poonga", "Pulicat Lake", "Nanmangalam Reserve Forest"] }
+        };
+
+        function generateUniqueItinerary(interest, days) {
+            let placesArray = itineraries[interest].places;
+            let numPlaces = days === "1_day" ? 2 : days === "2_days" ? 4 : 6;
+            return placesArray.sort(() => 0.5 - Math.random()).slice(0, numPlaces);
+        }
+
+        function showItinerary() {
+            let interest = document.getElementById("interest").value;
+            let days = document.getElementById("days").value;
+            let itinerary = generateUniqueItinerary(interest, days);
+            let itineraryHTML = `<b>Your ${days.replace("_", " ")} Itinerary:</b><br>`;
+            
+            itinerary.forEach(place => {
+                let googleMapsLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(place)}`;
+                itineraryHTML += `• <a href="${googleMapsLink}" target="_blank">${place}</a><br>`;
+            });
+
+            document.getElementById("result").innerHTML = itineraryHTML;
+        }
+
+        function viewOnMap() {
+            let placesList = document.getElementById("result").getElementsByTagName("a");
+            if (!placesList.length) {
+                alert("Generate an itinerary first!");
+                return;
+            }
+
+            let googleMapsUrl = "https://www.google.com/maps/dir/";
+            for (let place of placesList) {
+                googleMapsUrl += encodeURIComponent(place.innerText) + "/";
+            }
+
+            window.open(googleMapsUrl, "_blank");
+        }
+
+        function submitFeedback() {
+            let rating = document.getElementById("rating").value;
+            let comments = document.getElementById("comments").value.trim();
+            if (comments === "") {
+                alert("Please enter your comments before submitting.");
+                return;
+            }
+
+            let feedback = JSON.parse(localStorage.getItem("feedback")) || [];
+            feedback.push({ rating, comments, timestamp: new Date().toLocaleString() });
+            localStorage.setItem("feedback", JSON.stringify(feedback));
+
+            document.getElementById("feedbackMessage").innerText = "Thank you for your feedback!";
+            document.getElementById("comments").value = "";
+        }
+    </script>
+</body>
+</html>

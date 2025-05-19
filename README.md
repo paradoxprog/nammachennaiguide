@@ -26,7 +26,7 @@ Namma Chennai Guide is a simple, static website offering helpful information and
 1. Clone this repository:
 
    ```bash
-   git clone https://github.com/paradoxprog/namma-chennai-guide.git
+   git clone https://github.com/paradoxprog/nammachennaiguide.git
    ```
 
 2. Open the `index.html` file in your browser to view the landing page.

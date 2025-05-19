@@ -4,7 +4,7 @@ Namma Chennai Guide is a simple, static website offering helpful information and
 
 ## 🌐 Live Demo
 
-**Check it out live:** Namma Chennai Guide(https://nammachennaiguide.vercel.app/)
+**Check it out live:** [Namma Chennai Guide](https://nammachennaiguide.vercel.app/)
 
 ## 📁 Project Structure
 

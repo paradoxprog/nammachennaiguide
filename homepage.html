@@ -6,134 +6,490 @@
     <title>Namma Chennai Guide</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             text-align: center;
-            margin: 20px;
-            background-color: #f4f4f4;
-        }
-        .container {
-            background: white;
+            margin: 0;
             padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            max-width: 500px;
-            margin: auto;
+            background-color: #F4F6F8; /* Very light cool grey */
+            color: #2D3748; /* Dark, slightly desaturated blue/grey for text */
+            line-height: 1.6;
         }
-        select, button, textarea {
+
+        .container {
+            background: #FFFFFF;
+            padding: 30px;
+            border-radius: 8px; 
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.08); /* Subtle shadow */
+            max-width: 600px;
+            margin: 30px auto;
+            text-align: left;
+            border: 1px solid #E2E8F0; /* Light grey border */
+        }
+
+        h2, h3 {
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 1.8em; /* Slightly reduced for a more "app" feel */
+            color: #1A202C; /* Almost black, very dark grey/blue */
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #E2E8F0; /* Light grey separator */
+        }
+
+        h3 {
+            font-size: 1.4em;
+            color: #2B6CB0; /* Primary Blue for subheadings */
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600; /* Standard bold for labels */
+            font-size: 0.9em;
+            margin-bottom: 8px;
+            color: #4A5568; /* Medium grey/blue */
+        }
+
+        select, textarea {
             width: 100%;
-            padding: 10px;
-            margin: 10px 0;
+            padding: 12px;
+            margin: 0;
+            border: 1px solid #CBD5E0; /* Light-medium grey border */
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 1em;
+            background-color: #FFFFFF; 
+            color: #2D3748;
+            font-family: inherit; /* Inherit from body */
         }
+
+        select:focus, textarea:focus {
+            border-color: #2B6CB0; /* Primary Blue accent */
+            box-shadow: 0 0 0 3px rgba(43, 108, 176, 0.2); 
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px 15px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 6px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out, transform 0.1s ease;
+            font-family: inherit;
+        }
+
+        button.btn-primary {
+            background-color: #2B6CB0; /* Primary Blue */
+            color: white;
+        }
+
+        button.btn-primary:hover {
+            background-color: #2C5282; /* Darker shade of primary blue */
+        }
+        
+        button.btn-primary:active {
+            transform: translateY(1px);
+        }
+
+
+        button.btn-secondary {
+            background-color: #E2E8F0; /* Light grey */
+            color: #2D3748; /* Dark text for contrast */
+            border: 1px solid #CBD5E0;
+        }
+
+        button.btn-secondary:hover {
+            background-color: #CBD5E0; /* Slightly darker grey */
+        }
+        
+        button.btn-secondary:active {
+            transform: translateY(1px);
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .button-group button {
+            flex-grow: 1;
+        }
+
         #result {
             text-align: left;
+            padding: 15px;
+            margin-top: 20px;
+            font-size: 0.95em;
+            background-color: #EBF8FF; /* Very light blue background */
+            border: 1px solid #BEE3F8; /* Light blue border */
+            border-radius: 6px;
+        }
+
+        #result b {
+            color: #2B6CB0; /* Primary Blue */
+            font-weight: 600;
+            font-size: 1.05em;
+        }
+        
+        #result ul {
+            list-style-type: none;
+            padding-left: 0;
+            margin-top: 10px;
+        }
+
+        #result li {
+            padding: 6px 0;
+            border-bottom: 1px solid #E2E8F0; /* Light grey separator */
+        }
+         #result li:last-child {
+            border-bottom: none;
+        }
+
+        #result a {
+            color: #2B6CB0; /* Primary Blue for links */
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        #result a:hover {
+            color: #2C5282; /* Darker blue on hover */
+            text-decoration: underline;
+        }
+        
+        #feedbackMessage {
+            color: #2F855A; /* Professional Green text */
+            font-weight: 500;
+            margin-top: 15px;
+            text-align: center;
             padding: 10px;
-            font-size: 16px;
+            background-color: #C6F6D5; /* Light green background */
+            border-radius: 6px;
+            border: 1px solid #9AE6B4; /* Green border */
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #E2E8F0; /* Light grey separator */
+            font-size: 0.85em;
+            color: #718096; /* Medium-light grey for footer text */
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2> Namma Chennai Guide</h2>
-	<h3>Explore Chennai - Personalized Itinerary</h3>
-	
+        <h2>Namma Chennai Guide</h2>
+        <h3>Explore Chennai - Personalized Itinerary</h3>
         
-        <label for="travelType">Travel Type:</label>
-        <select id="travelType">
-            <option value="solo">Solo</option>
-            <option value="family">Family</option>
-            <option value="friends">Friends</option>
-            <option value="couple">Couple</option>
-            <option value="business">Business</option>
-        </select>
+        <div class="form-group">
+            <label for="travelType">Travel Companion</label>
+            <select id="travelType">
+                <option value="solo">Solo</option>
+                <option value="family">Family</option>
+                <option value="friends">Friends</option>
+                <option value="couple">Couple</option>
+                <option value="business">Business</option>
+            </select>
+        </div>
 
-        <label for="interest">Interest:</label>
-        <select id="interest">
-            <option value="beaches">Beaches</option>
-            <option value="temples">Temples</option>
-            <option value="shopping">Shopping</option>
-            <option value="food">Food & Restaurants</option>
-            <option value="historical">Historical Sites</option>
-            <option value="nature">Nature & Parks</option>
-        </select>
+        <div class="form-group">
+            <label for="interest">Primary Interest</label>
+            <select id="interest">
+                <option value="beaches">Beaches & Coastline</option>
+                <option value="temples">Temples (Ancient & Popular)</option>
+                <option value="spiritual_sites">Spiritual Journeys (Diverse Faiths)</option>
+                <option value="historical_landmarks">Historical Landmarks</option>
+                <option value="art_culture">Art, Music & Culture</option>
+                <option value="food_experiences">Food Experiences (From Street to Fine Dining)</option>
+                <option value="shopping_malls">Shopping (Malls & Branded Stores)</option>
+                <option value_Sitemap">Local Markets & Bazaars</option>
+                <option value="nature_wildlife">Nature & Wildlife</option>
+                <option value="entertainment_leisure">Entertainment & Leisure</option>
+                <option value="day_trips">Day Trips from Chennai</option>
+            </select>
+        </div>
 
-        <label for="budget">Budget:</label>
-        <select id="budget">
-            <option value="low">Low</option>
-            <option value="medium">Medium</option>
-            <option value="high">High</option>
-        </select>
+        <div class="form-group">
+            <label for="budget">Budget Range</label>
+            <select id="budget">
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+            </select>
+        </div>
 
-        <label for="days">Days of Travel:</label>
-        <select id="days">
-            <option value="1_day">1 Day</option>
-            <option value="2_days">2 Days</option>
-            <option value="3_days">3+ Days</option>
-        </select>
+        <div class="form-group">
+            <label for="days">Duration of Stay</label>
+            <select id="days">
+                <option value="1_day">1 Day</option>
+                <option value="2_days">2 Days</option>
+                <option value="3_days">3+ Days</option>
+            </select>
+        </div>
+        
+        <div class="button-group">
+            <button onclick="showItinerary()" class="btn-primary">Generate Itinerary</button>
+            <button onclick="viewOnMap()" class="btn-secondary">View on Map</button>
+        </div>
 
-        <button onclick="showItinerary()">Generate Itinerary</button>
-        <button onclick="viewOnMap()">View on Map</button>
-
-        <h3>Your Itinerary:</h3>
+        <h3>Your Recommended Itinerary</h3>
         <div id="result"></div>
 
         <h3>Feedback</h3>
-        <label for="rating">Rate your experience:</label>
-        <select id="rating">
-            <option value="5">Excellent (5)</option>
-            <option value="4">Good (4)</option>
-            <option value="3">Average (3)</option>
-            <option value="2">Poor (2)</option>
-            <option value="1">Very Poor (1)</option>
-        </select>
+        <div class="form-group">
+            <label for="rating">Rate Your Experience</label>
+            <select id="rating">
+                <option value="5">Excellent (5)</option>
+                <option value="4">Good (4)</option>
+                <option value="3">Average (3)</option>
+                <option value="2">Poor (2)</option>
+                <option value="1">Very Poor (1)</option>
+            </select>
+        </div>
 
-        <label for="comments">Your Comments:</label>
-        <textarea id="comments" rows="4" placeholder="Share your experience..."></textarea>
-        <button onclick="submitFeedback()">Submit Feedback</button>
+        <div class="form-group">
+            <label for="comments">Comments & Suggestions</label>
+            <textarea id="comments" rows="4" placeholder="Please share your feedback..."></textarea>
+        </div>
+        <button onclick="submitFeedback()" class="btn-primary">Submit Feedback</button>
 
-        <p id="feedbackMessage" style="color: green;"></p>
-
-            </div>
+        <p id="feedbackMessage"></p>
+    </div>
 
     <script>
         const itineraries = {
-            beaches: { places: ["Marina Beach", "Elliot's Beach", "Mahabalipuram Beach", "Covelong Beach", "VGP Golden Beach", "Thiruvanmiyur Beach"] },
-            temples: { places: ["Kapaleeshwarar Temple", "Parthasarathy Temple", "Sri Ashtalakshmi Temple", "Vadapalani Murugan Temple", "Marundeeswarar Temple"] },
-            shopping: { places: ["Express Avenue Mall", "Phoenix MarketCity", "T. Nagar Shopping", "Pondy Bazaar", "Burma Bazaar"] },
-            food: { places: ["Murugan Idli Shop", "Sangeetha Veg Restaurant", "Dakshin at Crowne Plaza", "Saravana Bhavan", "Zuka Chennai"] },
-            historical: { places: ["Fort St. George", "Santhome Cathedral Basilica", "Vivekananda House", "Government Museum", "Ripon Building"] },
-            nature: { places: ["Guindy National Park", "Arignar Anna Zoological Park", "Semmozhi Poonga", "Pulicat Lake", "Nanmangalam Reserve Forest"] }
-        };
+    beaches: {
+        displayName: "Beaches & Coastline",
+        places: [
+            "Marina Beach (Second longest urban beach in the world, promenade, statues, lighthouse)",
+            "Elliot's Beach / Besant Nagar Beach (Karl Schmidt Memorial, eateries, vibrant youth spot)",
+            "Covelong Beach / Kovalam (Surfing schools, Dutch fort ruins, fishing village)",
+            "Mahabalipuram Beach (Shore Temple backdrop, casuarina groves, resorts) - Also a Day Trip",
+            "VGP Golden Beach (Private beach with amusement park access, clean)",
+            "Thiruvanmiyur Beach (Quieter, local vibe, good for walks)",
+            "Akkarai Beach (Cleaner, less crowded, on ECR)",
+            "Palavakkam Beach (Residential area beach, good for families)",
+            "Breezy Beach, Valmiki Nagar (Small, serene, less commercial)",
+            "Santhome Beach (Near Santhome Basilica, cityeach)"
+        ]
+    },
+    temples: {
+        displayName: "Temples (Ancient & Popular)",
+        places: [
+            "Kapaleeshwarar Temple, Mylapore (7th century Dravidian architecture, dedicated to Shiva)",
+            "Parthasarathy Temple, Triplicane (8th century, dedicated to Lord Vishnu, ancient sculptures)",
+            "Sri Ashtalakshmi Temple, Besant Nagar (Unique temple dedicated to 8 forms of Lakshmi, by the sea)",
+            "Vadapalani Murugan Temple (Popular Murugan temple, known for weddings)",
+            "Marundeeswarar Temple, Thiruvanmiyur (Dedicated to Shiva as healer, 11th century Chola architecture)",
+            "Kandhakottam Temple, George Town (Dedicated to Lord Muruga, vibrant festivals)",
+            "Thiruneermalai Vishnu Temple (Hilltop temple with two Vishnu shrines, ancient)",
+            "Kalikambal Temple, George Town (Dedicated to Goddess Kamakshi, visited by Shivaji Maharaj)",
+            "Ekambareswarar Temple, Mint Street (Ancient Shiva temple in bustling Sowcarpet)",
+            "Shirdi Sai Baba Temple, Mylapore (Popular temple dedicated to Sai Baba)",
+            "Sri Ramakrishna Math Universal Temple, Mylapore (Unique architecture, peaceful ambiance)"
+        ]
+    },
+    spiritual_sites: {
+        displayName: "Spiritual Journeys (Diverse Faiths)",
+        places: [
+            "Santhome Cathedral Basilica (Roman Catholic basilica built over the tomb of St. Thomas)",
+            "St. Thomas Mount National Shrine (Hilltop shrine where St. Thomas is believed to have been martyred)",
+            "Thousand Lights Mosque, Royapettah (Multi-domed mosque, important Shia center)",
+            "Big Mosque (Wallajah Mosque), Triplicane (Historic Sunni mosque, beautiful architecture)",
+            "Armenian Church, George Town (One of the oldest churches in India, serene compound)",
+            "Luz Church (Church of Our Lady of Light), Mylapore (One of the oldest churches in Chennai, 16th century)",
+            "St. Mary's Church, Fort St. George (Oldest Anglican church east of Suez)",
+            "St. George's Cathedral, Gopalapuram (CSI Cathedral, impressive architecture)",
+            "Gurdwara Sri Guru Nanak Sat Sangh Sabha, T. Nagar (Principal Sikh place of worship)",
+            "Jain Temple, Sowcarpet (Various beautiful Jain temples in the Sowcarpet area)",
+            "Theosophical Society Adyar (International headquarters, serene gardens, diverse shrines)"
+        ]
+    },
+    historical_landmarks: {
+        displayName: "Historical Landmarks",
+        places: [
+            "Fort St. George (First English fortress in India, now houses Tamil Nadu Legislative Assembly & Museum)",
+            "Government Museum, Egmore (Rich collection of archaeological and numismatic items, art gallery)",
+            "Vivekananda House / Vivekanandar Illam (Historic building where Swami Vivekananda stayed)",
+            "Ripon Building (Iconic all-white Chennai Corporation building, Indo-Saracenic style)",
+            "Madras High Court (Imposing Indo-Saracenic building, one of the largest judicial complexes)",
+            "Chennai Central Railway Station (Historic railway station with Gothic and Romanesque architecture)",
+            "Valluvar Kottam, Nungambakkam (Monument to poet-saint Thiruvalluvar, large auditorium, stone chariot)",
+            "Connemara Public Library, Egmore (One of India's National Depository Libraries, historic building)",
+            "Senate House, University of Madras (Indo-Saracenic architectural marvel, Chepauk)",
+            "National Art Gallery, Egmore (Housed in a historic building, traditional and contemporary art)",
+            "War Memorials (Various locations, commemorating soldiers)"
+        ]
+    },
+    art_culture: {
+        displayName: "Art, Music & Culture",
+        places: [
+            "Kalakshetra Foundation, Thiruvanmiyur (Cultural academy for Bharatanatyam, Carnatic music, visual arts)",
+            "Cholamandal Artists' Village, Injambakkam (India's largest self-supporting artists' commune)",
+            "DakshinaChitra Museum, Muttukadu (Living history museum of South Indian art, craft, and architecture) - Also a Day Trip",
+            "The Music Academy Madras, Royapettah (Premier institution for Carnatic music, December Season hub)",
+            "Krishna Gana Sabha, T. Nagar (Prominent venue for Carnatic music and dance performances)",
+            "Spaces, Besant Nagar (Cultural space for theatre, arts, workshops)",
+            "Amethyst Cafe & Gallery, Royapettah (Boutique, cafe, and art/photography gallery)",
+            "Apparao Galleries, Nungambakkam (Contemporary art gallery)",
+            "InKo Centre (Indo-Korean Cultural and Information Centre)",
+            "Alliance Française of Madras (French cultural center, events, library)",
+            "Goethe-Institut / Max Mueller Bhavan (German cultural center, events, library)"
+        ]
+    },
+    food_experiences: {
+        displayName: "Food Experiences",
+        places: [
+            "Murugan Idli Shop (Iconic for soft idlis, various chutneys, and podi)",
+            "Sangeetha Veg Restaurant (Popular chain for South Indian vegetarian, North Indian, and Chinese)",
+            "Saravana Bhavan (Global chain, extensive vegetarian menu, consistent quality)",
+            "Nair Mess, Triplicane (Authentic Chettinad non-vegetarian meals on banana leaf)",
+            "Rayar's Mess, Mylapore (Tiny, legendary eatery for limited traditional breakfast/tiffin)",
+            "Dindigul Thalappakatti Restaurant (Famous for its unique biryani recipe)",
+            "Anjappar Chettinad Restaurant (Well-known for Chettinad cuisine, especially non-veg)",
+            "Ratna Cafe, Triplicane (Famous for its sambar idli and other South Indian dishes)",
+            "Mint Street, Sowcarpet (Street food hub for chaat, North Indian snacks, and sweets)",
+            "Besant Nagar Beach Food Stalls (Variety of street food, especially seafood and snacks)",
+            "Cafes in Alwarpet & Nungambakkam (Trendy cafes like Chamiers Cafe, Ciclo Cafe, Amethyst)",
+            "Fine Dining at 5-Star Hotels (e.g., Dakshin at Crowne Plaza, Southern Spice at Taj Coromandel, Avartana at ITC Grand Chola)"
+        ]
+    },
+    shopping_malls: {
+        displayName: "Shopping (Malls & Branded Stores)",
+        places: [
+            "Express Avenue Mall, Royapettah (Large mall with international brands, EAPlex cinemas, food court)",
+            "Phoenix MarketCity, Velachery (One of the largest malls, wide range of brands, Luxe Cinemas, Imax)",
+            "VR Chennai, Anna Nagar (Mall with unique architecture, diverse brands, PVR Cinemas)",
+            "Chennai Citi Centre, Mylapore (Mall with good brands, food court, views of Marina Beach)",
+            "Spencer Plaza, Anna Salai (One of India's oldest malls, mix of old and new shops)",
+            "Forum Vijaya Mall, Vadapalani (Popular mall with PVR Palazzo, good retail mix)",
+            "Ampa Skywalk, Aminjikarai (Mall with cinemas, food court, and retail stores)",
+            "Grand Square, Velachery (Smaller mall, convenient for local shopping)",
+            "Bergamo, Nungambakkam (Luxury mall with high-end designer boutiques)",
+            "Chandra Metro Mall, Virugambakkam (Local mall with PVR cinemas)"
+        ]
+    },
+    local_markets: {
+        displayName: "Local Markets & Bazaars",
+        places: [
+            "T. Nagar (Thyagaraya Nagar - Usman Road, Ranganathan Street, Panagal Park for Silks, Jewelry, household items)",
+            "Pondy Bazaar, T. Nagar (Street shopping for clothes, footwear, accessories, household items)",
+            "Sowcarpet & Mint Street (Wholesale market, North Indian textiles, electronics, vibrant street food)",
+            "Burma Bazaar, Parry's Corner (Known for electronics, gadgets, imported goods - bargain hard)",
+            "George Town Markets (Historic commercial heart, wholesale goods, flowers, spices, textiles)",
+            "Koyambedu Wholesale Market Complex (One of Asia's largest perishable goods markets - for flowers, fruits, vegetables - an early morning experience)",
+            "Ritchie Street, Chintadripet (Largest electronics and electrical goods market in South India)",
+            "Cotton Street (Pantheon Road), Egmore (Famous for a wide variety of fabrics)",
+            "Moore Market Complex (Near Chennai Central, for old books, antiques, pets - though changed after a fire)",
+            "Mylapore Tank Area (Around Kapaleeshwarar Temple, for traditional items, pooja articles, local crafts, street food)"
+        ]
+    },
+    nature_wildlife: {
+        displayName: "Nature & Wildlife",
+        places: [
+            "Guindy National Park & Snake Park (Unique national park within city limits, blackbucks, deer, various snakes)",
+            "Arignar Anna Zoological Park (Vandalur Zoo - One of the largest zoos in India, diverse species, safari)",
+            "Semmozhi Poonga (Botanical garden with diverse flora, walking paths, artificial ponds)",
+            "Adyar Eco Park / Tholkappia Poonga (Ecologically restored park, good for birdwatching, guided walks)",
+            "Nanmangalam Reserve Forest (Scrub forest, good for birding and short treks)",
+            "Theosophical Society Gardens, Adyar (Lush, serene campus with diverse trees, including a historic banyan tree)",
+            "Chetpet Ecopark / Lake (Boating, angling, walking track around a restored lake)",
+            "Madhavaram Botanical Garden (Large garden with diverse plant species, good for a quiet outing)",
+            "Pallikaranai Wetland Park (Important urban wetland, birdwatching spot, especially during migratory season)"
+        ]
+    },
+    entertainment_leisure: {
+        displayName: "Entertainment & Leisure",
+        places: [
+            "VGP Universal Kingdom, ECR (Amusement park with various rides, water park)",
+            "MGM Dizzee World, ECR (Popular amusement park with dry rides and water park)",
+            "Mayajaal Multiplex & Entertainment, ECR (Large multiplex with other entertainment options)",
+            "Sathyam Cinemas / PVR Sathyam, Royapettah (Iconic cinema complex known for its quality experience)",
+            "Escape Cinemas, Express Avenue (Premium cinema experience)",
+            "Prarthana Drive-In Theatre, ECR (Unique drive-in cinema experience)",
+            "Snow Kingdom, VGP (Indoor snow theme park)",
+            "Click Art Museum, VGP (Trick art museum for fun photography)",
+            "Kart Attack, ECR (Go-karting track)",
+            "Phoenix MarketCity Entertainment Zone (Gaming arcades, bowling, kids' play areas within the mall)",
+            "Live Music Venues & Pubs (Various across the city, e.g., The Leather Bar, Radio Room, Bay 146)"
+        ]
+    },
+    day_trips: {
+        displayName: "Day Trips from Chennai",
+        places: [
+            "Mahabalipuram / Mamallapuram (UNESCO World Heritage site - Shore Temple, Pancha Rathas, Arjuna's Penance, beaches)",
+            "Kanchipuram (Temple city known for its ancient temples and silk sarees)",
+            "Pulicat Lake & Bird Sanctuary (Second largest brackish water lagoon in India, birdwatching, Dutch cemetery)",
+            "Vedanthangal Bird Sanctuary (One of the oldest bird sanctuaries, especially for migratory birds - seasonal)",
+            "Pondicherry / Puducherry (Former French colony with unique architecture, Auroville, beaches, cafes - a longer day trip or overnight)",
+            "DakshinaChitra Museum, Muttukadu (Also a day trip focus, cultural heritage village)",
+            "Sadras Dutch Fort (Ruins of a 17th-century Dutch fort near Kalpakkam)",
+            "Alamparai Fort (Ruins of an 18th-century fort by the sea, scenic)",
+            "Muttukadu Boat House (Boating and water sports on the backwaters)",
+            "Thiruthani Murugan Temple (One of the six abodes of Lord Murugan, hilltop temple)"
+        ]
+    }
+};
 
         function generateUniqueItinerary(interest, days) {
             let placesArray = itineraries[interest].places;
-            let numPlaces = days === "1_day" ? 2 : days === "2_days" ? 4 : 6;
-            return placesArray.sort(() => 0.5 - Math.random()).slice(0, numPlaces);
+            let numPlaces = days === "1_day" ? 2 : (days === "2_days" ? 4 : 6);
+            if (placesArray.length <= numPlaces) { 
+                numPlaces = placesArray.length;
+            }
+            return [...placesArray].sort(() => 0.5 - Math.random()).slice(0, numPlaces);
         }
 
         function showItinerary() {
-            let interest = document.getElementById("interest").value;
-            let days = document.getElementById("days").value;
-            let itinerary = generateUniqueItinerary(interest, days);
-            let itineraryHTML = `<b>Your ${days.replace("_", " ")} Itinerary:</b><br>`;
+            let interestValue = document.getElementById("interest").value;
+            let daysValue = document.getElementById("days").value;
             
-            itinerary.forEach(place => {
-                let googleMapsLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(place)}`;
-                itineraryHTML += `• <a href="${googleMapsLink}" target="_blank">${place}</a><br>`;
-            });
+            // Get the display name for the selected interest
+            let interestDisplayName = itineraries[interestValue] ? itineraries[interestValue].displayName : interestValue.replace("_", " ").replace(/\b\w/g, l => l.toUpperCase());
 
+            let itinerary = generateUniqueItinerary(interestValue, daysValue);
+            
+            let daysSelect = document.getElementById("days");
+            let daysText = daysSelect.options[daysSelect.selectedIndex].text;
+
+            let itineraryHTML = `<b>${daysText} Itinerary: ${interestDisplayName}</b><br><ul>`;
+            
+            if (itinerary.length === 0) {
+                itineraryHTML += `<li>No specific places found for this combination. Explore Chennai's wonders!</li>`;
+            } else {
+                itinerary.forEach(place => {
+                    let googleMapsLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(place)}`; 
+                    itineraryHTML += `<li><a href="${googleMapsLink}" target="_blank">${place}</a></li>`;
+                });
+            }
+            itineraryHTML += `</ul>`;
             document.getElementById("result").innerHTML = itineraryHTML;
         }
 
         function viewOnMap() {
-            let placesList = document.getElementById("result").getElementsByTagName("a");
-            if (!placesList.length) {
-                alert("Generate an itinerary first!");
+            let resultDiv = document.getElementById("result");
+            let placesAnchors = resultDiv.getElementsByTagName("a");
+            if (!placesAnchors.length) {
+                alert("Please generate an itinerary first.");
                 return;
             }
 
             let googleMapsUrl = "https://www.google.com/maps/dir/";
-            for (let place of placesList) {
-                googleMapsUrl += encodeURIComponent(place.innerText) + "/";
+            for (let i = 0; i < placesAnchors.length; i++) {
+                googleMapsUrl += encodeURIComponent(placesAnchors[i].innerText) + "/";
             }
 
             window.open(googleMapsUrl, "_blank");
@@ -152,12 +508,14 @@
             localStorage.setItem("feedback", JSON.stringify(feedback));
 
             document.getElementById("feedbackMessage").innerText = "Thank you for your feedback!";
-            document.getElementById("comments").value = "";
+            document.getElementById("comments").value = ""; 
+            setTimeout(() => {
+                document.getElementById("feedbackMessage").innerText = "";
+            }, 3000);
         }
     </script>
     <footer>
-  &copy; 2025 All rights reserved to Namma Chennai Guide 
-</footer>
-
+        © 2025 Namma Chennai Guide. All Rights Reserved.
+    </footer>
 </body>
 </html>

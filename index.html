@@ -1,760 +1,1291 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Namma Chennai Guide | Home</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <style>
-        /* Variables and Reset */
-        :root {
-            --primary-color: #007bff; /* Namma Chennai Guide Primary Blue */
-            --primary-hover: #0056b3;
-            --bg-light: #f8f9fa;
-            --bg-dark: #212529;
-            --card-bg-light: #ffffff;
-            --card-bg-dark: #343a40;
-            --text-color-light: #343a40;
-            --text-color-dark: #f8f9fa;
-            --border-color-light: #e0e0e0;
-            --border-color-dark: #495057;
-            --shadow-light: rgba(0, 0, 0, 0.1);
-            --shadow-dark: rgba(0, 0, 0, 0.5);
-            --header-bg-light: #ffffff;
-            --header-bg-dark: #2a2a2a;
-            /* Google Button Colors */
-            --google-button-bg: #4285F4; /* Google Blue */
-            --google-button-hover: #357ae8; /* Darker Google Blue */
-        }
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: var(--bg-light);
-            color: var(--text-color-light);
-            transition: background-color 0.4s ease, color 0.4s ease;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+    <meta charset="UTF-8" />
 
-        /* Dark Mode Styles */
-        body.dark {
-            --bg-light: #1a1a1a;
-            --bg-dark: #0d0d0d;
-            --card-bg-light: #2c2c2c;
-            --card-bg-dark: #1f1f1f;
-            --text-color-light: #e0e0e0;
-            --text-color-dark: #f0f0f0;
-            --border-color-light: #3a3a3a;
-            --border-color-dark: #555;
-            --shadow-light: rgba(0, 0, 0, 0.7);
-            --shadow-dark: rgba(0, 0, 0, 0.9);
-            --header-bg-light: #2c2c2c;
-            --header-bg-dark: #1a1a1a;
-            --google-button-bg: #4285F4;
-            --google-button-hover: #357ae8;
-        }
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        /* Global Styles */
-        *, *::before, *::after {
-            box-sizing: border-box;
-        }
+    <title>Namma Chennai Guide | Home</title>
 
-        /* Header */
-        header {
-            width: 100%;
-            background-color: var(--header-bg-light);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 15px 40px;
-            box-shadow: 0 4px 12px var(--shadow-light);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-        header .logo-container {
-            display: flex;
-            align-items: center;
-        }
+    <style>
 
-        header img { /* Site Logo */
-            height: 80px;
-            margin-right: 15px;
-            border-radius: 8px;
-        }
+        /* Variables and Reset */
 
-        header h1 {
-            font-size: 28px;
-            color: var(--text-color-light);
-            margin: 0;
-            font-weight: 700;
-        }
-        body.dark header h1 {
-            color: var(--text-color-dark);
-        }
+        :root {
 
-        nav {
-            display: flex;
-            align-items: center;
-        }
+            --primary-color: #007bff; /* A more vibrant blue */
 
-        nav a {
-            margin-left: 30px;
-            text-decoration: none;
-            color: var(--text-color-light);
-            font-weight: 600;
-            font-size: 16px;
-            transition: color 0.3s ease;
-            position: relative;
-        }
-        body.dark nav a {
-            color: var(--text-color-dark);
-        }
+            --primary-hover: #0056b3;
 
-        nav a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            display: block;
-            margin-top: 5px;
-            right: 0;
-            background: var(--primary-color);
-            transition: width 0.3s ease;
-        }
+            --bg-light: #f8f9fa; /* Lighter background for overall page */
 
-        nav a:hover::after, nav a.active-nav-link::after {
-            width: 100%;
-            left: 0;
-            background: var(--primary-color);
-        }
-        nav a:hover, nav a.active-nav-link {
-            color: var(--primary-color);
-        }
+            --bg-dark: #212529; /* Darker background for dark mode */
 
-        /* Main Content Area */
-        main {
-            width: 100%;
-            max-width: 960px;
-            padding: 40px 20px;
-            margin: 40px auto;
-            background-color: var(--card-bg-light);
-            border-radius: 12px;
-            box-shadow: 0 8px 25px var(--shadow-light);
-            overflow: hidden;
-            position: relative;
-        }
+            --card-bg-light: #ffffff;
 
-        /* Section Transitions */
-        section {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-            padding: 20px;
-            max-width: 700px;
-            margin: 0 auto;
-            display: none; /* Hidden by default */
-        }
+            --card-bg-dark: #343a40;
 
-        section.active {
-            opacity: 1;
-            transform: translateY(0);
-            display: block; /* Show active section */
-        }
+            --text-color-light: #343a40;
 
-        h2 {
-            text-align: center;
-            margin-bottom: 35px;
-            font-weight: 700;
-            color: var(--primary-color);
-            font-size: 32px;
-        }
+            --text-color-dark: #f8f9fa;
 
-        h3, h4 {
-            color: var(--text-color-light);
-            margin-top: 30px;
-            margin-bottom: 15px;
-            font-weight: 600;
-        }
-        body.dark h3, body.dark h4 {
-            color: var(--text-color-dark);
-        }
-        h3 { font-size: 24px; }
-        h4 { font-size: 20px; }
+            --border-color-light: #e0e0e0;
 
-        p {
-            font-size: 16px;
-            line-height: 1.7;
-            margin-bottom: 15px;
-            color: var(--text-color-light);
-        }
-        body.dark p {
-            color: var(--text-color-dark);
-        }
+            --border-color-dark: #495057;
 
-        ul {
-            list-style: none;
-            padding-left: 0;
-            margin-bottom: 30px;
-        }
+            --shadow-light: rgba(0, 0, 0, 0.1);
 
-        ul li {
-            background-color: var(--bg-light);
-            padding: 15px 25px;
-            margin-bottom: 12px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px var(--shadow-light);
-            font-weight: 500;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            border-left: 4px solid var(--primary-color);
-        }
-        body.dark ul li {
-            background-color: var(--card-bg-dark);
-        }
-        ul li:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 12px var(--shadow-light);
-        }
+            --shadow-dark: rgba(0, 0, 0, 0.5);
 
-        /* Forms */
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 15px; /* Overall spacing for form elements */
-        }
+            --header-bg-light: #ffffff;
 
-        input[type="text"],
-        input[type="email"],
-        input[type="password"] {
-            background-color: var(--card-bg-light);
-            border: 1px solid var(--border-color-light);
-            border-radius: 8px;
-            padding: 14px 18px;
-            font-size: 16px;
-            color: var(--text-color-light);
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-            width: 100%;
-        }
-        body.dark input[type="text"],
-        body.dark input[type="email"],
-        body.dark input[type="password"] {
-            background-color: var(--bg-dark);
-            color: var(--text-color-dark);
-            border-color: var(--border-color-dark);
-        }
+            --header-bg-dark: #2a2a2a;
 
-        input[type="text"]:focus,
-        input[type="email"]:focus,
-        input[type="password"]:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
-        }
+        }
 
-        input[type="submit"] {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 15px;
-            border-radius: 8px;
-            font-size: 18px;
-            cursor: pointer;
-            font-weight: 700;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            width: 100%;
-             /* margin-top removed, spacing handled by form gap and or-divider */
-        }
 
-        input[type="submit"]:hover {
-            background-color: var(--primary-hover);
-            transform: translateY(-2px);
-        }
 
-        /* OR divider */
-        .or-divider {
-            text-align: center;
-            margin: 10px 0; /* Reduced margin for tighter spacing with form gap */
-            color: var(--text-color-light);
-            font-size: 14px;
-            position: relative;
-        }
-        .or-divider::before,
-        .or-divider::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            width: calc(50% - 20px);
-            height: 1px;
-            background-color: var(--border-color-light);
-        }
-        .or-divider::before { left: 0; }
-        .or-divider::after { right: 0; }
-        body.dark .or-divider { color: var(--text-color-dark); }
-        body.dark .or-divider::before,
-        body.dark .or-divider::after { background-color: var(--border-color-dark); }
+        body {
 
-        /* Google Sign-In Button Styling */
-        .google-signin-btn {
-            background-color: var(--google-button-bg);
-            color: white;
-            border: none;
-            padding: 12px 15px;
-            border-radius: 8px;
-            font-size: 18px;
-            cursor: pointer;
-            font-weight: 700;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            width: 100%;
-            /* margin-top removed */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
+            font-family: 'Poppins', sans-serif;
 
-        .google-signin-btn:hover {
-            background-color: var(--google-button-hover);
-            transform: translateY(-2px);
-        }
+            margin: 0;
 
-        .google-signin-btn img.google-icon-img {
-            height: 24px;
-            width: 24px;
-            background-color: white;
-            border-radius: 2px;
-            padding: 2px;
-        }
+            padding: 0;
 
-        /* Dark Mode Toggle */
-        .toggle-dark {
-            position: relative;
-            display: inline-block;
-            width: 55px;
-            height: 30px;
-            border-radius: 30px;
-            background-color: var(--border-color-light);
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            vertical-align: middle;
-            margin-left: 20px;
-            border: none;
-            box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
-        }
-        body.dark .toggle-dark {
-            background-color: var(--border-color-dark);
-        }
+            background-color: var(--bg-light);
 
-        .toggle-dark input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-            position: absolute;
-            left: -9999px;
-        }
+            color: var(--text-color-light);
 
-        .toggle-thumb {
-            position: absolute;
-            top: 3px;
-            left: 3px;
-            width: 24px;
-            height: 24px;
-            background-color: var(--primary-color);
-            border-radius: 50%;
-            transition: left 0.3s ease, background-color 0.3s ease, transform 0.2s ease;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-        body.dark .toggle-dark input:checked + .toggle-thumb {
-            background-color: #f0f0f0;
-        }
+            transition: background-color 0.4s ease, color 0.4s ease;
 
-        .toggle-dark input:checked + .toggle-thumb {
-            left: 28px;
-            transform: rotate(360deg);
-        }
+            min-height: 100vh;
 
-        /* Footer */
-        footer {
-            width: 100%;
-            padding: 20px;
-            text-align: center;
-            background-color: var(--header-bg-light);
-            color: var(--text-color-light);
-            font-size: 14px;
-            margin-top: auto;
-            box-shadow: 0 -2px 8px var(--shadow-light);
-            border-top: 1px solid var(--border-color-light);
-        }
-        body.dark footer {
-            background-color: var(--header-bg-dark);
-            color: var(--text-color-dark);
-            border-top-color: var(--border-color-dark);
-        }
+            display: flex;
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            header { flex-direction: column; padding: 15px 20px; text-align: center; }
-            header .logo-container { margin-bottom: 15px; }
-            nav { flex-wrap: wrap; justify-content: center; }
-            nav a { margin: 0 15px 10px; }
-            header h1 { font-size: 24px; }
-            main { margin: 20px auto; padding: 20px 15px; }
-            h2 { font-size: 28px; margin-bottom: 25px; }
-            ul li { padding: 12px 18px; }
-            .or-divider::before, .or-divider::after { width: calc(50% - 25px); }
-        }
+            flex-direction: column;
 
-        @media (max-width: 480px) {
-            header img { height: 50px; }
-            header h1 { font-size: 20px; }
-            nav a { margin: 0 10px 8px; font-size: 14px; }
-            main { padding: 15px; margin: 15px; }
-            h2 { font-size: 24px; }
-            p, ul li, input { font-size: 15px; }
-            input[type="submit"], .google-signin-btn { padding: 12px; font-size: 16px; }
-            .google-signin-btn img.google-icon-img { height: 20px; width: 20px; }
-            .or-divider::before, .or-divider::after { width: calc(50% - 30px); }
-        }
-    </style>
-    <!-- Firebase SDKs - Ensure you are using versions compatible with the compat API (v8 style) -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
+            align-items: center;
+
+        }
+
+
+
+        /* Dark Mode Styles */
+
+        body.dark {
+
+            --bg-light: #1a1a1a;
+
+            --bg-dark: #0d0d0d;
+
+            --card-bg-light: #2c2c2c;
+
+            --card-bg-dark: #1f1f1f;
+
+            --text-color-light: #e0e0e0;
+
+            --text-color-dark: #f0f0f0;
+
+            --border-color-light: #3a3a3a;
+
+            --border-color-dark: #555;
+
+            --shadow-light: rgba(0, 0, 0, 0.7);
+
+            --shadow-dark: rgba(0, 0, 0, 0.9);
+
+            --header-bg-light: #2c2c2c;
+
+            --header-bg-dark: #1a1a1a;
+
+        }
+
+
+
+        /* Global Styles */
+
+        *, *::before, *::after {
+
+            box-sizing: border-box;
+
+        }
+
+
+
+        /* Header */
+
+        header {
+
+            width: 100%;
+
+            background-color: var(--header-bg-light);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 15px 40px;
+
+            box-shadow: 0 4px 12px var(--shadow-light);
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 100;
+
+        }
+
+
+
+        header .logo-container {
+
+            display: flex;
+
+            align-items: center;
+
+        }
+
+
+
+        header img {
+
+            height: 80px; /* Reduced logo size */
+
+            margin-right: 15px;
+
+            border-radius: 8px; /* Slightly rounded corners for logo */
+
+        }
+
+
+
+        header h1 {
+
+            font-size: 28px;
+
+            color: var(--text-color-light);
+
+            margin: 0;
+
+            font-weight: 700;
+
+        }
+
+
+
+        nav {
+
+            display: flex;
+
+            align-items: center;
+
+        }
+
+
+
+        nav a {
+
+            margin-left: 30px;
+
+            text-decoration: none;
+
+            color: var(--text-color-light);
+
+            font-weight: 600;
+
+            font-size: 16px;
+
+            transition: color 0.3s ease;
+
+            position: relative;
+
+        }
+
+
+
+        nav a::after {
+
+            content: '';
+
+            position: absolute;
+
+            width: 0;
+
+            height: 2px;
+
+            display: block;
+
+            margin-top: 5px;
+
+            right: 0;
+
+            background: var(--primary-color);
+
+            transition: width 0.3s ease;
+
+        }
+
+
+
+        nav a:hover::after {
+
+            width: 100%;
+
+            left: 0;
+
+            background: var(--primary-color);
+
+        }
+
+        nav a:hover {
+
+            color: var(--primary-color);
+
+        }
+
+
+
+        /* Main Content Area */
+
+        main {
+
+            width: 100%;
+
+            max-width: 960px; /* Increased max-width for content */
+
+            padding: 40px 20px;
+
+            margin: 40px auto;
+
+            background-color: var(--card-bg-light);
+
+            border-radius: 12px;
+
+            box-shadow: 0 8px 25px var(--shadow-light);
+
+            overflow: hidden;
+
+            position: relative;
+
+        }
+
+
+
+        /* Section Transitions */
+
+        section {
+
+            opacity: 0;
+
+            transform: translateY(20px);
+
+            transition: opacity 0.6s ease, transform 0.6s ease;
+
+            padding: 20px;
+
+            max-width: 700px; /* Limit text width for readability */
+
+            margin: 0 auto; /* Center content */
+
+        }
+
+
+
+        section.active {
+
+            opacity: 1;
+
+            transform: translateY(0);
+
+        }
+
+
+
+        h2 {
+
+            text-align: center;
+
+            margin-bottom: 35px;
+
+            font-weight: 700;
+
+            color: var(--primary-color);
+
+            font-size: 32px;
+
+        }
+
+
+
+        h3, h4 {
+
+            color: var(--text-color-light);
+
+            margin-top: 30px;
+
+            margin-bottom: 15px;
+
+            font-weight: 600;
+
+        }
+
+        h3 { font-size: 24px; }
+
+        h4 { font-size: 20px; }
+
+
+
+        p {
+
+            font-size: 16px;
+
+            line-height: 1.7;
+
+            margin-bottom: 15px;
+
+            color: var(--text-color-light);
+
+        }
+
+
+
+        ul {
+
+            list-style: none;
+
+            padding-left: 0;
+
+            margin-bottom: 30px;
+
+        }
+
+
+
+        ul li {
+
+            background-color: var(--bg-light); /* Lighter background for list items */
+
+            padding: 15px 25px;
+
+            margin-bottom: 12px;
+
+            border-radius: 8px;
+
+            box-shadow: 0 2px 8px var(--shadow-light);
+
+            font-weight: 500;
+
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+            border-left: 4px solid var(--primary-color);
+
+        }
+
+        ul li:hover {
+
+            transform: translateY(-3px);
+
+            box-shadow: 0 4px 12px var(--shadow-light);
+
+        }
+
+
+
+        /* Forms */
+
+        form {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 15px; /* Spacing between form elements */
+
+        }
+
+
+
+        input[type="text"],
+
+        input[type="email"],
+
+        input[type="password"] {
+
+            background-color: var(--card-bg-light);
+
+            border: 1px solid var(--border-color-light);
+
+            border-radius: 8px;
+
+            padding: 14px 18px;
+
+            font-size: 16px;
+
+            color: var(--text-color-light);
+
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+            width: 100%;
+
+        }
+
+
+
+        input[type="text"]:focus,
+
+        input[type="email"]:focus,
+
+        input[type="password"]:focus {
+
+            outline: none;
+
+            border-color: var(--primary-color);
+
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25); /* Focus ring effect */
+
+        }
+
+
+
+        input[type="submit"] {
+
+            background-color: var(--primary-color);
+
+            color: white;
+
+            border: none;
+
+            padding: 15px;
+
+            border-radius: 8px;
+
+            font-size: 18px;
+
+            cursor: pointer;
+
+            font-weight: 700;
+
+            transition: background-color 0.3s ease, transform 0.2s ease;
+
+            width: 100%;
+
+            margin-top: 10px;
+
+        }
+
+
+
+        input[type="submit"]:hover {
+
+            background-color: var(--primary-hover);
+
+            transform: translateY(-2px);
+
+        }
+
+
+
+        .google-signin-btn {
+
+            background-color: #DB4437; /* Google red */
+
+            color: white;
+
+            border: none;
+
+            padding: 15px;
+
+            border-radius: 8px;
+
+            font-size: 18px;
+
+            cursor: pointer;
+
+            font-weight: 700;
+
+            transition: background-color 0.3s ease, transform 0.2s ease;
+
+            width: 100%;
+
+            margin-top: 10px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 10px;
+
+        }
+
+
+
+        .google-signin-btn:hover {
+
+            background-color: #c13a2f;
+
+            transform: translateY(-2px);
+
+        }
+
+
+
+        .google-icon {
+
+            width: 24px;
+
+            height: 24px;
+
+            background: url('https://upload.wikimedia.org/wikipedia/commons/4/4a/Logo_of_Google_G_Suite.svg') center center / contain no-repeat; /* A simple Google G icon */
+
+            /* Or use a proper SVG or image if available */
+
+        }
+
+
+
+        /* Dark Mode Toggle */
+
+        .toggle-dark {
+
+            position: relative;
+
+            display: inline-block;
+
+            width: 55px; /* Increased width */
+
+            height: 30px; /* Increased height */
+
+            border-radius: 30px;
+
+            background-color: var(--border-color-light);
+
+            cursor: pointer;
+
+            transition: background-color 0.3s ease;
+
+            vertical-align: middle;
+
+            margin-left: 20px;
+
+            border: none;
+
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+
+        }
+
+
+
+        .toggle-dark input {
+
+            opacity: 0;
+
+            width: 0;
+
+            height: 0;
+
+            position: absolute;
+
+            left: -9999px;
+
+        }
+
+
+
+        .toggle-thumb {
+
+            position: absolute;
+
+            top: 3px;
+
+            left: 3px;
+
+            width: 24px; /* Increased size */
+
+            height: 24px; /* Increased size */
+
+            background-color: var(--primary-color);
+
+            border-radius: 50%;
+
+            transition: left 0.3s ease, background-color 0.3s ease, transform 0.2s ease;
+
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+
+        }
+
+
+
+        .toggle-dark input:checked + .toggle-thumb {
+
+            left: 28px; /* Adjusted position for larger thumb */
+
+            background-color: #f0f0f0;
+
+            transform: rotate(360deg);
+
+        }
+
+        .toggle-dark input:checked {
+
+            background-color: var(--primary-color);
+
+        }
+
+
+
+        /* Footer */
+
+        footer {
+
+            width: 100%;
+
+            padding: 20px;
+
+            text-align: center;
+
+            background-color: var(--header-bg-light);
+
+            color: var(--text-color-light);
+
+            font-size: 14px;
+
+            margin-top: auto; /* Pushes footer to the bottom */
+
+            box-shadow: 0 -2px 8px var(--shadow-light);
+
+            border-top: 1px solid var(--border-color-light);
+
+        }
+
+
+
+        /* Responsive Design */
+
+        @media (max-width: 768px) {
+
+            header {
+
+                flex-direction: column;
+
+                padding: 15px 20px;
+
+                text-align: center;
+
+            }
+
+            header .logo-container {
+
+                margin-bottom: 15px;
+
+            }
+
+            nav {
+
+                flex-wrap: wrap;
+
+                justify-content: center;
+
+            }
+
+            nav a {
+
+                margin: 0 15px 10px;
+
+            }
+
+            header h1 {
+
+                font-size: 24px;
+
+            }
+
+            main {
+
+                margin: 20px auto;
+
+                padding: 20px 15px;
+
+            }
+
+            h2 {
+
+                font-size: 28px;
+
+                margin-bottom: 25px;
+
+            }
+
+            ul li {
+
+                padding: 12px 18px;
+
+            }
+
+        }
+
+
+
+        @media (max-width: 480px) {
+
+            header img {
+
+                height: 50px;
+
+            }
+
+            header h1 {
+
+                font-size: 20px;
+
+            }
+
+            nav a {
+
+                margin: 0 10px 8px;
+
+                font-size: 14px;
+
+            }
+
+            main {
+
+                padding: 15px;
+
+                margin: 15px;
+
+            }
+
+            h2 {
+
+                font-size: 24px;
+
+            }
+
+            p, ul li, input {
+
+                font-size: 15px;
+
+            }
+
+            input[type="submit"], .google-signin-btn {
+
+                padding: 12px;
+
+                font-size: 16px;
+
+            }
+
+        }
+
+    </style>
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
+
 </head>
+
 <body>
 
+
+
 <header>
-    <div class="logo-container">
-        <img src="logo 1.jpeg" alt="Namma Chennai Guide Logo" /> <!-- TODO: Ensure this image path is correct -->
-        <h1>Namma Chennai Guide</h1>
-    </div>
-    <nav>
-        <a href="#" id="link-about" class="active-nav-link">About Us</a>
-        <a href="#" id="link-login">Log In</a>
-        <a href="#" id="link-signup">Sign Up</a>
-        <label class="toggle-dark" for="darkToggle" aria-label="Toggle dark mode">
-            <input type="checkbox" id="darkToggle" />
-            <span class="toggle-thumb"></span>
-        </label>
-    </nav>
+
+    <div class="logo-container">
+
+        <img src="logo 1.jpeg" alt="Namma Chennai Guide Logo" />
+
+        <h1>Namma Chennai Guide</h1>
+
+    </div>
+
+    <nav>
+
+        <a href="#" id="link-about">About Us</a>
+
+        <a href="#" id="link-login">Log In</a>
+
+        <a href="#" id="link-signup">Sign Up</a>
+
+        <label class="toggle-dark" for="darkToggle" aria-label="Toggle dark mode">
+
+            <input type="checkbox" id="darkToggle" />
+
+            <span class="toggle-thumb"></span>
+
+        </label>
+
+    </nav>
+
 </header>
 
+
+
 <main>
-    <section id="about" class="active">
-        <h2>About Us</h2>
-        <h3>Your Ultimate Guide to Chennai! 🌆</h3>
-        <p>Welcome to <strong>Namma Chennai Guide</strong>, your one-stop destination for everything about Chennai! Whether you're a local seeking fresh experiences or a traveler eager to uncover the cultural richness of this vibrant city, we've got you covered.</p>
-        <h4>🌟 Who We Are</h4>
-        <p>We are a passionate team of Chennaiites, dedicated to showcasing the best of this city. From the aroma of filter coffee and the roar of Marina's waves to the rich heritage of temples and the buzz of modern tech hubs, we capture the essence of Chennai.</p>
-        <h4>📌 What We Do</h4>
-        <ul>
-            <li><strong>Local Insights:</strong> Discover the must-visit places, hidden gems, and offbeat experiences.</li>
-            <li><strong>Travel & Lifestyle Tips:</strong> Get personalized recommendations to make the most of your Chennai journey.</li>
-            <li><strong>Cultural Connections:</strong> Dive into the rich history, art, and traditions that make Chennai unique.</li>
-        </ul>
-        <h4>💥 Why Choose Us?</h4>
-        <p>We don’t just write about Chennai—we live it! Our team explores, experiences, and handpicks the best this city has to offer, ensuring our guides are genuine and insightful.</p>
-        <p><em>Because Chennai isn’t just a city—it’s an emotion, a lifestyle, and a celebration of culture. Welcome to <strong>Namma Chennai Guide</strong> – your guide to living the Chennai life! 🌱</em></p>
-    </section>
 
-    <section id="login" style="display:none;">
-        <h2>Log In</h2>
-        <form id="loginForm" autocomplete="off">
-            <input type="email" id="loginEmail" placeholder="Email" required />
-            <input type="password" id="loginPassword" placeholder="Password" required />
-            <input type="submit" value="Log In" />
-            <div class="or-divider">OR</div>
-            <button type="button" id="googleLoginBtn" class="google-signin-btn">
-                <img src="https://img.icons8.com/color/48/000000/google-logo.png" alt="Google logo" class="google-icon-img"/>
-                Sign In with Google
-            </button>
-        </form>
-    </section>
+    <section id="about" class="active">
 
-    <section id="signup" style="display:none;">
-        <h2>Sign Up</h2>
-        <form id="signupForm" autocomplete="off">
-            <input type="text" id="signupName" placeholder="Full Name" required />
-            <input type="email" id="signupEmail" placeholder="Email" required />
-            <input type="password" id="signupPassword" placeholder="Password (min. 6 characters)" required /> <!-- Added min. 6 characters hint -->
-            <input type="submit" value="Sign Up" />
-            <div class="or-divider">OR</div>
-            <button type="button" id="googleSignupBtn" class="google-signin-btn">
-                <img src="https://img.icons8.com/color/48/000000/google-logo.png" alt="Google logo" class="google-icon-img"/>
-                Sign Up with Google
-            </button>
-        </form>
-    </section>
+        <h2>About Us</h2>
+
+        <h3>Your Ultimate Guide to Chennai! 🌆</h3>
+
+
+
+        <p>Welcome to <strong>Namma Chennai Guide</strong>, your one-stop destination for everything about Chennai! Whether you're a local seeking fresh experiences or a traveler eager to uncover the cultural richness of this vibrant city, we've got you covered.</p>
+
+
+
+        <h4>🌟 Who We Are</h4>
+
+        <p>We are a passionate team of Chennaiites, dedicated to showcasing the best of this city. From the aroma of filter coffee and the roar of Marina's waves to the rich heritage of temples and the buzz of modern tech hubs, we capture the essence of Chennai.</p>
+
+
+
+        <h4>📌 What We Do</h4>
+
+        <ul>
+
+            <li><strong>Local Insights:</strong> Discover the must-visit places, hidden gems, and offbeat experiences.</li>
+
+            <li><strong>Travel & Lifestyle Tips:</strong> Get personalized recommendations to make the most of your Chennai journey.</li>
+
+            <li><strong>Cultural Connections:</strong> Dive into the rich history, art, and traditions that make Chennai unique.</li>
+
+        </ul>
+
+
+
+        <h4>💥 Why Choose Us?</h4>
+
+        <p>We don’t just write about Chennai—we live it! Our team explores, experiences, and handpicks the best this city has to offer, ensuring our guides are genuine and insightful.</p>
+
+
+
+        <p><em>Because Chennai isn’t just a city—it’s an emotion, a lifestyle, and a celebration of culture. Welcome to <strong>Namma Chennai Guide</strong> – your guide to living the Chennai life! 🌱</em></p>
+
+    </section>
+
+
+
+    <section id="login" style="display:none;">
+
+        <h2>Log In</h2>
+
+        <form id="loginForm" autocomplete="off">
+
+            <input type="email" id="loginEmail" placeholder="Email" required />
+
+            <input type="password" id="loginPassword" placeholder="Password" required />
+
+            <input type="submit" value="Log In" />
+
+            <button type="button" id="googleLoginBtn" class="google-signin-btn">
+
+                <span class="google-icon"></span> Sign In with Google
+
+            </button>
+
+        </form>
+
+    </section>
+
+
+
+    <section id="signup" style="display:none;">
+
+        <h2>Sign Up</h2>
+
+        <form id="signupForm" autocomplete="off">
+
+            <input type="text" id="signupName" placeholder="Full Name" required />
+
+            <input type="email" id="signupEmail" placeholder="Email" required />
+
+            <input type="password" id="signupPassword" placeholder="Password" required />
+
+            <input type="submit" value="Sign Up" />
+
+            <button type="button" id="googleSignupBtn" class="google-signin-btn">
+
+                <span class="google-icon"></span> Sign Up with Google
+
+            </button>
+
+        </form>
+
+    </section>
+
 </main>
 
+
+
 <script>
-    // DEBUGGING TIPS:
-    // 1. Open your browser's Developer Console (usually F12) to see error messages.
-    // 2. Double-check the firebaseConfig object below with your Firebase project settings.
-    // 3. In Firebase Console > Authentication > Sign-in method: Ensure "Email/Password" and "Google" are ENABLED.
-    // 4. In Firebase Console > Authentication > Settings > Authorized domains: Add your app's domain (e.g., localhost).
-    // 5. In Firebase Console > Realtime Database > Rules: Ensure rules allow writes to 'users/{uid}'.
-    // 6. Make sure you have a 'homepage.html' file in the same directory for redirection.
 
-    // Firebase Configuration - IMPORTANT: Replace with your project's config!
-    const firebaseConfig = {
-        apiKey: "AIzaSyA47Bvey7ewY21Xx-xoCIk3-gNr_X6OObw", // TODO: Replace with your actual API key from Firebase
-        authDomain: "nammachennaiguide.firebaseapp.com",   // TODO: Replace with your actual authDomain
-        projectId: "nammachennaiguide",                   // TODO: Replace with your actual projectId
-        storageBucket: "nammachennaiguide.firebasestorage.app", // TODO: Replace with your actual storageBucket
-        messagingSenderId: "441961341289",                // TODO: Replace with your actual messagingSenderId
-        appId: "1:441961341289:web:004cf40f9d52f540889df8", // TODO: Replace with your actual appId
-        measurementId: "G-HR8QTESJBF"                     // TODO: Replace with your actual measurementId (optional)
-    };
+    // Firebase Configuration
 
-    // Initialize Firebase
-    try {
-        firebase.initializeApp(firebaseConfig);
-        console.log("Firebase initialized successfully.");
-    } catch (e) {
-        console.error("Error initializing Firebase:", e);
-        alert("Could not initialize Firebase. Please check your configuration and console for errors.");
-    }
-    
-    const auth = firebase.auth();
-    const database = firebase.database();
+    const firebaseConfig = {
 
-    // DOM Elements
-    const aboutSection = document.getElementById('about');
-    const loginSection = document.getElementById('login');
-    const signupSection = document.getElementById('signup');
+        apiKey: "AIzaSyA47Bvey7ewY21Xx-xoCIk3-gNr_X6OObw",
 
-    const linkAbout = document.getElementById('link-about');
-    const linkLogin = document.getElementById('link-login');
-    const linkSignup = document.getElementById('link-signup');
-    const allNavLinks = [linkAbout, linkLogin, linkSignup];
+        authDomain: "nammachennaiguide.firebaseapp.com",
 
-    // Section Navigation Logic
-    function showSection(sectionToShow, activeNavLink) {
-        [aboutSection, loginSection, signupSection].forEach(s => {
-            if(s) { s.style.display = 'none'; s.classList.remove('active'); }
-        });
-        allNavLinks.forEach(link => {
-            if(link) link.classList.remove('active-nav-link');
-        });
-        if(sectionToShow) {
-            sectionToShow.style.display = 'block';
-            void sectionToShow.offsetWidth; // Trigger reflow for CSS transition
-            sectionToShow.classList.add('active');
-        }
-        if(activeNavLink) activeNavLink.classList.add('active-nav-link');
-    }
-    
-    if(linkAbout) {
-        linkAbout.classList.add('active-nav-link'); // Set initial active link
-        linkAbout.addEventListener('click', (e) => { e.preventDefault(); showSection(aboutSection, linkAbout); });
-    }
-    if(linkLogin) linkLogin.addEventListener('click', (e) => { e.preventDefault(); showSection(loginSection, linkLogin); });
-    if(linkSignup) linkSignup.addEventListener('click', (e) => { e.preventDefault(); showSection(signupSection, linkSignup); });
+        projectId: "nammachennaiguide",
 
-    // Dark Mode Toggle
-    const darkToggle = document.getElementById('darkToggle');
-    function applyDarkMode(isDark) {
-        if (isDark) {
-            document.body.classList.add('dark');
-            if(darkToggle) darkToggle.checked = true;
-            localStorage.setItem('nammaChennaiDarkMode', 'enabled');
-        } else {
-            document.body.classList.remove('dark');
-            if(darkToggle) darkToggle.checked = false;
-            localStorage.removeItem('nammaChennaiDarkMode');
-        }
-    }
-    if (darkToggle) {
-        applyDarkMode(localStorage.getItem('nammaChennaiDarkMode') === 'enabled');
-        darkToggle.addEventListener('change', () => applyDarkMode(darkToggle.checked));
-    } else {
-        console.warn("Dark mode toggle button not found.");
-    }
+        storageBucket: "nammachennaiguide.firebasestorage.app",
+
+        messagingSenderId: "441961341289",
+
+        appId: "1:441961341289:web:004cf40f9d52f540889df8",
+
+        measurementId: "G-HR8QTESJBF"
+
+    };
 
 
-    // --- Firebase Authentication Logic ---
 
-    // Sign Up with Email and Password
-    const signupForm = document.getElementById('signupForm');
-    if (signupForm) {
-        signupForm.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            const nameInput = document.getElementById('signupName');
-            const emailInput = document.getElementById('signupEmail');
-            const passwordInput = document.getElementById('signupPassword');
+    // Initialize Firebase
 
-            if (!nameInput || !emailInput || !passwordInput) {
-                console.error("Signup form elements missing.");
-                return;
-            }
+    firebase.initializeApp(firebaseConfig);
 
-            const name = nameInput.value.trim();
-            const email = emailInput.value.trim();
-            const password = passwordInput.value;
+    const auth = firebase.auth();
 
-            if (!name || !email || password.length < 6) {
-                alert('Please fill in all fields. Password must be at least 6 characters.');
-                return;
-            }
-
-            try {
-                console.log("Attempting to create user with email:", email);
-                const userCredential = await auth.createUserWithEmailAndPassword(email, password);
-                const user = userCredential.user;
-                console.log("User created successfully in Auth:", user.uid);
-
-                await database.ref('users/' + user.uid).set({
-                    name: name,
-                    email: email,
-                    createdAt: firebase.database.ServerValue.TIMESTAMP
-                });
-                console.log("User data saved to Realtime Database.");
-
-                alert(`Account created successfully for ${name}! Please log in.`);
-                this.reset();
-                showSection(loginSection, linkLogin);
-            } catch (error) {
-                console.error("Signup error:", error.code, error.message, error);
-                alert(`Failed to create account: ${error.message} (Code: ${error.code})`);
-            }
-        });
-    } else {
-        console.error("Signup form not found.");
-    }
-
-    // Log In with Email and Password
-    const loginForm = document.getElementById('loginForm');
-    if (loginForm) {
-        loginForm.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            const emailInput = document.getElementById('loginEmail');
-            const passwordInput = document.getElementById('loginPassword');
-
-            if (!emailInput || !passwordInput) {
-                console.error("Login form elements missing.");
-                return;
-            }
-            const email = emailInput.value.trim();
-            const password = passwordInput.value;
-
-            if (!email || !password) {
-                alert('Please enter both email and password.');
-                return;
-            }
-
-            try {
-                console.log("Attempting to sign in user with email:", email);
-                const userCredential = await auth.signInWithEmailAndPassword(email, password);
-                const user = userCredential.user;
-                console.log("User signed in successfully:", user.uid);
-
-                const userSnapshot = await database.ref('users/' + user.uid).once('value');
-                const userData = userSnapshot.val();
-                const userName = userData ? userData.name : user.email;
-                console.log("User data fetched from RTDB:", userData);
-
-                alert(`Welcome back, ${userName}!`);
-                sessionStorage.setItem('nammaChennaiLoggedInUser', JSON.stringify({name: userName, email: user.email, uid: user.uid}));
-                console.log("User session stored. Redirecting to homepage.html");
-                window.location.href = 'homepage.html'; // TODO: Make sure homepage.html exists
-            } catch (error) {
-                console.error("Login error:", error.code, error.message, error);
-                alert(`Login failed: ${error.message} (Code: ${error.code})`);
-            }
-        });
-    } else {
-        console.error("Login form not found.");
-    }
+    const database = firebase.database(); // Realtime Database reference
 
 
-    // Google Sign-In/Sign-Up logic
-    const googleProvider = new firebase.auth.GoogleAuthProvider();
 
-    async function handleGoogleAuth() {
-        console.log("Attempting Google Sign-In.");
-        try {
-            const result = await auth.signInWithPopup(googleProvider);
-            const user = result.user;
-            const isNewUser = result.additionalUserInfo.isNewUser;
-            console.log("Google Sign-In successful. User:", user.uid, "New user:", isNewUser);
+    // Section navigation (no changes here, as it's UI logic)
 
-            const userRef = database.ref('users/' + user.uid);
-            const snapshot = await userRef.once('value');
-            const existingData = snapshot.val();
+    const aboutSection = document.getElementById('about');
 
-            await userRef.set({
-                name: user.displayName,
-                email: user.email,
-                provider: 'google.com',
-                createdAt: isNewUser ? firebase.database.ServerValue.TIMESTAMP : existingData?.createdAt || firebase.database.ServerValue.TIMESTAMP,
-                lastLogin: firebase.database.ServerValue.TIMESTAMP
-            });
-            console.log("Google user data saved/updated in Realtime Database.");
-            
-            alert(`Welcome, ${user.displayName}!`);
-            sessionStorage.setItem('nammaChennaiLoggedInUser', JSON.stringify({name: user.displayName, email: user.email, uid: user.uid}));
-            console.log("Google user session stored. Redirecting to homepage.html");
-            window.location.href = 'homepage.html'; // TODO: Make sure homepage.html exists
-        } catch (error) {
-            console.error("Google Sign-In error:", error.code, error.message, error);
-            if (error.code === 'auth/popup-closed-by-user') {
-                alert('Google Sign-In popup was closed by the user.');
-            } else if (error.code === 'auth/cancelled-popup-request') {
-                alert('Google Sign-In was cancelled. Please try again.');
-            } else if (error.code === 'auth/network-request-failed'){
-                 alert('Google Sign-In failed due to a network error. Please check your internet connection.');
-            } else {
-                alert(`Google Sign-In failed: ${error.message} (Code: ${error.code})`);
-            }
-        }
-    }
+    const loginSection = document.getElementById('login');
 
-    const googleLoginBtn = document.getElementById('googleLoginBtn');
-    const googleSignupBtn = document.getElementById('googleSignupBtn');
+    const signupSection = document.getElementById('signup');
 
-    if (googleLoginBtn) {
-        googleLoginBtn.addEventListener('click', handleGoogleAuth);
-    } else {
-        console.error("Google Login Button not found.");
-    }
-    if (googleSignupBtn) {
-        googleSignupBtn.addEventListener('click', handleGoogleAuth);
-    } else {
-        console.error("Google Signup Button not found.");
-    }
 
-    // Auth State Observer
-    auth.onAuthStateChanged(user => {
-        if (user) {
-            console.log("Auth state changed: User is logged in.", user.uid);
-            // Example: If user is logged in and on the index page, redirect to homepage
-            // if (window.location.pathname.endsWith('index.html') || window.location.pathname === '/') {
-            //    console.log("User is on index page, redirecting to homepage.html");
-            //    window.location.href = 'homepage.html';
-            // }
-        } else {
-            console.log("Auth state changed: User is logged out.");
-        }
-    });
 
-    // Initial Setup
-    showSection(aboutSection, linkAbout); // Show about section on load
-    const footerYear = document.getElementById('footerYear');
-    if (footerYear) {
-        footerYear.textContent = new Date().getFullYear();
-    } else {
-        console.warn("Footer year element not found.");
-    }
+    const linkAbout = document.getElementById('link-about');
+
+    const linkLogin = document.getElementById('link-login');
+
+    const linkSignup = document.getElementById('link-signup');
+
+
+
+    function showSection(section) {
+
+        [aboutSection, loginSection, signupSection].forEach(s => {
+
+            s.style.display = 'none';
+
+            s.classList.remove('active');
+
+        });
+
+        section.style.display = 'block';
+
+        // Trigger reflow for animation
+
+        void section.offsetWidth;
+
+        section.classList.add('active');
+
+    }
+
+
+
+    linkAbout.addEventListener('click', (e) => {
+
+        e.preventDefault();
+
+        showSection(aboutSection);
+
+    });
+
+
+
+    linkLogin.addEventListener('click', (e) => {
+
+        e.preventDefault();
+
+        showSection(loginSection);
+
+    });
+
+
+
+    linkSignup.addEventListener('click', (e) => {
+
+        e.preventDefault();
+
+        showSection(signupSection);
+
+    });
+
+
+
+    // Dark mode toggle (no changes here, as it's UI logic)
+
+    const darkToggle = document.getElementById('darkToggle');
+
+
+
+    function applyDarkMode(isDark) {
+
+        if (isDark) {
+
+            document.body.classList.add('dark');
+
+            darkToggle.checked = true;
+
+            localStorage.setItem('darkMode', 'enabled');
+
+        } else {
+
+            document.body.classList.remove('dark');
+
+            darkToggle.checked = false;
+
+            localStorage.removeItem('darkMode');
+
+        }
+
+    }
+
+
+
+    // Initialize toggle state from localStorage on page load
+
+    applyDarkMode(localStorage.getItem('darkMode') === 'enabled');
+
+
+
+    darkToggle.addEventListener('change', () => {
+
+        applyDarkMode(darkToggle.checked);
+
+    });
+
+
+
+    // --- Firebase Authentication Logic ---
+
+
+
+    // Sign Up with Email and Password
+
+    document.getElementById('signupForm').addEventListener('submit', async function(e) {
+
+        e.preventDefault();
+
+        const name = document.getElementById('signupName').value.trim();
+
+        const email = document.getElementById('signupEmail').value.trim();
+
+        const password = document.getElementById('signupPassword').value;
+
+
+
+        try {
+
+            const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+
+            const user = userCredential.user;
+
+
+
+            // Save user data to Realtime Database
+
+            await database.ref('users/' + user.uid).set({
+
+                name: name,
+
+                email: email,
+
+                createdAt: firebase.database.ServerValue.TIMESTAMP
+
+            });
+
+
+
+            alert(`Account created successfully for ${name}! Please log in.`);
+
+            this.reset();
+
+            showSection(loginSection); // Redirect to login after successful signup
+
+        } catch (error) {
+
+            console.error("Signup error:", error.code, error.message);
+
+            alert(`Failed to create account: ${error.message}`);
+
+        }
+
+    });
+
+
+
+    // Log In with Email and Password
+
+    document.getElementById('loginForm').addEventListener('submit', async function(e) {
+
+        e.preventDefault();
+
+        const email = document.getElementById('loginEmail').value.trim();
+
+        const password = document.getElementById('loginPassword').value;
+
+
+
+        try {
+
+            const userCredential = await auth.signInWithEmailAndPassword(email, password);
+
+            const user = userCredential.user;
+
+            alert(`Welcome back, ${user.email}!`);
+
+            window.location.href = 'homepage.html'; // Redirect to homepage.html
+
+        } catch (error) {
+
+            console.error("Login error:", error.code, error.message);
+
+            alert(`Login failed: ${error.message}`);
+
+        }
+
+    });
+
+
+
+    // Google Sign-In/Sign-Up logic (using a single button for both)
+
+    const googleProvider = new firebase.auth.GoogleAuthProvider();
+
+
+
+    document.getElementById('googleLoginBtn').addEventListener('click', async () => {
+
+        try {
+
+            const result = await auth.signInWithPopup(googleProvider);
+
+            const user = result.user;
+
+            const isNewUser = result.additionalUserInfo.isNewUser;
+
+
+
+            if (isNewUser) {
+
+                // If it's a new Google user, save their data to Realtime Database
+
+                await database.ref('users/' + user.uid).set({
+
+                    name: user.displayName,
+
+                    email: user.email,
+
+                    createdAt: firebase.database.ServerValue.TIMESTAMP
+
+                });
+
+                alert(`Welcome, ${user.displayName}! Your account has been created.`);
+
+            } else {
+
+                alert(`Welcome back, ${user.displayName || user.email}!`);
+
+            }
+
+            window.location.href = 'homepage.html'; // Redirect to homepage.html
+
+        } catch (error) {
+
+            console.error("Google Sign-In error:", error.code, error.message);
+
+            alert(`Google Sign-In failed: ${error.message}`);
+
+        }
+
+    });
+
+
+
+    document.getElementById('googleSignupBtn').addEventListener('click', async () => {
+
+        // For simplicity, Google sign-up often uses the same flow as Google login
+
+        // as Firebase handles whether it's a new user or existing one.
+
+        document.getElementById('googleLoginBtn').click(); // Re-use the login button's logic
+
+    });
+
+
+
+
+
+    // Optional: Listen for authentication state changes (good for knowing if a user is logged in)
+
+    auth.onAuthStateChanged(user => {
+
+        if (user) {
+
+            console.log("User is logged in:", user.email, user.uid);
+
+            // You might want to update UI to show "Logout" instead of "Login/Signup"
+
+            // Or redirect directly to homepage.html if the user is already logged in
+
+            // if (window.location.pathname.endsWith('index.html')) {
+
+            //     window.location.href = 'homepage.html';
+
+            // }
+
+        } else {
+
+            console.log("User is logged out.");
+
+            // Update UI to show "Login/Signup"
+
+        }
+
+    });
+
+
+
+
+
+    // Show about section on load
+
+    showSection(aboutSection);
 
 </script>
+
 <footer>
-    &copy; <span id="footerYear"></span> All rights reserved to Namma Chennai Guide
+
+    &copy; 2025 All rights reserved to Namma Chennai Guide
+
 </footer>
 
+
+
 </body>
+
 </html>

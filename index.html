@@ -592,6 +592,7 @@
                 // Signed in successfully
                 const user = userCredential.user;
                 alert(`Welcome back, ${user.email}!`);
+                window.location.href = 'homepage.html'; 
                 // Redirect to homepage.html or desired page
                 // window.location.href = 'homepage.html'; // Uncomment and ensure homepage.html exists
             })

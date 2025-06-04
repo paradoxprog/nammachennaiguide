@@ -22,10 +22,6 @@
             --shadow-dark: rgba(0, 0, 0, 0.5);
             --header-bg-light: #ffffff;
             --header-bg-dark: #2a2a2a;
-            --success-bg: #d4edda;
-            --success-text: #155724;
-            --error-bg: #f8d7da;
-            --error-text: #721c24;
         }
 
         body {
@@ -336,28 +332,6 @@
             border-top: 1px solid var(--border-color-light);
         }
 
-        /* Message Container */
-        #messageContainer {
-            text-align: center;
-            padding: 10px;
-            margin-bottom: 20px;
-            border-radius: 8px;
-            font-weight: 600;
-            display: none; /* Hidden by default */
-        }
-
-        #messageContainer.success {
-            background-color: var(--success-bg);
-            color: var(--success-text);
-            border: 1px solid var(--success-text);
-        }
-
-        #messageContainer.error {
-            background-color: var(--error-bg);
-            color: var(--error-text);
-            border: 1px solid var(--error-text);
-        }
-
         /* Responsive Design */
         @media (max-width: 768px) {
             header {
@@ -423,7 +397,7 @@
 
 <header>
     <div class="logo-container">
-        <img src="https://placehold.co/60x60/007bff/ffffff?text=LOGO" alt="Namma Chennai Guide Logo" />
+        <img src="logo 1.jpeg" alt="Namma Chennai Guide Logo" />
         <h1>Namma Chennai Guide</h1>
     </div>
     <nav>
@@ -438,8 +412,6 @@
 </header>
 
 <main>
-    <div id="messageContainer"></div> <!-- Message container for user feedback -->
-
     <section id="about" class="active">
         <h2>About Us</h2>
         <h3>Your Ultimate Guide to Chennai! 🌆</h3>
@@ -494,10 +466,9 @@
     &copy; 2025 All rights reserved to Namma Chennai Guide
 </footer>
 
-<!-- Firebase SDK for App, Auth, and Realtime Database -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
 <script>
     // Your Firebase configuration
@@ -505,7 +476,6 @@
     const firebaseConfig = {
       apiKey: "AIzaSyA47Bvey7ewY21Xx-xoCIk3-gNr_X6OObw",
       authDomain: "nammachennaiguide.firebaseapp.com",
-      databaseURL: "https://nammachennaiguide-default-rtdb.firebaseio.com", // Ensure this is your Realtime Database URL
       projectId: "nammachennaiguide",
       storageBucket: "nammachennaiguide.firebasestorage.app",
       messagingSenderId: "441961341289",
@@ -518,32 +488,17 @@
 
     // Get Firebase services
     const auth = firebase.auth();
-    const database = firebase.database(); // Changed from firestore() to database()
+    const db = firebase.firestore();
 
-    // DOM Elements
+    // Section navigation
     const aboutSection = document.getElementById('about');
     const loginSection = document.getElementById('login');
     const signupSection = document.getElementById('signup');
+
     const linkAbout = document.getElementById('link-about');
     const linkLogin = document.getElementById('link-login');
     const linkSignup = document.getElementById('link-signup');
-    const darkToggle = document.getElementById('darkToggle');
-    const messageContainer = document.getElementById('messageContainer'); // Get message container
 
-    // --- Utility Function for Messages ---
-    function displayMessage(message, type) {
-        messageContainer.innerText = message;
-        messageContainer.className = `message ${type}`; // Add type class for styling
-        messageContainer.style.display = "block"; // Ensure it's visible
-
-        setTimeout(() => {
-            messageContainer.innerText = "";
-            messageContainer.style.display = "none"; // Hide after a delay
-            messageContainer.className = ""; // Reset class
-        }, 3000);
-    }
-
-    // --- Section Navigation ---
     function showSection(section) {
         [aboutSection, loginSection, signupSection].forEach(s => {
             s.style.display = 'none';
@@ -570,7 +525,9 @@
         showSection(signupSection);
     });
 
-    // --- Dark mode toggle ---
+    // Dark mode toggle
+    const darkToggle = document.getElementById('darkToggle');
+
     function applyDarkMode(isDark) {
         if (isDark) {
             document.body.classList.add('dark');
@@ -590,20 +547,20 @@
         applyDarkMode(darkToggle.checked);
     });
 
-    // --- Handle user state changes ---
+    // Handle user state changes
     auth.onAuthStateChanged(user => {
         if (user) {
-            console.log("User is signed in:", user.uid);
-            // Redirect to homepage if user is already logged in
-            window.location.href = 'homepage.html';
+            // User is signed in.
+            console.log("User is signed in:", user);
+            // Optionally redirect if they are already logged in when visiting this page
+            // window.location.href = 'homepage.html';
         } else {
+            // User is signed out.
             console.log("User is signed out.");
-            // Show about section if no user is signed in
-            showSection(aboutSection);
         }
     });
 
-    // --- Email/Password Signup form logic ---
+    // Email/Password Signup form logic
     document.getElementById('signupForm').addEventListener('submit', async function(e) {
         e.preventDefault();
         const name = document.getElementById('signupName').value.trim();
@@ -614,23 +571,23 @@
             const userCredential = await auth.createUserWithEmailAndPassword(email, password);
             const user = userCredential.user;
 
-            // Save user info to Realtime Database
-            await database.ref('users/' + user.uid).set({
+            // Save user info to Firestore
+            await db.collection('users').doc(user.uid).set({
                 name: name,
                 email: email,
-                createdAt: firebase.database.ServerValue.TIMESTAMP // Use server timestamp
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
             });
 
-            displayMessage(`Account created successfully for ${name}! Please log in.`, "success");
+            alert(`Account created successfully for ${name}! Please log in.`);
             this.reset();
             showSection(loginSection); // Redirect to login section after successful signup
         } catch (error) {
             console.error("Error signing up:", error.message);
-            displayMessage(`Error creating account: ${error.message}`, "error");
+            alert(`Error creating account: ${error.message}`);
         }
     });
 
-    // --- Email/Password Login form logic ---
+    // Email/Password Login form logic
     document.getElementById('loginForm').addEventListener('submit', async function(e) {
         e.preventDefault();
         const email = document.getElementById('loginEmail').value.trim().toLowerCase();
@@ -638,15 +595,15 @@
 
         try {
             await auth.signInWithEmailAndPassword(email, password);
-            displayMessage('Logged in successfully!', "success");
+            alert('Logged in successfully!');
             window.location.href = 'homepage.html'; // Redirect on successful login
         } catch (error) {
             console.error("Error logging in:", error.message);
-            displayMessage(`Error logging in: ${error.message}`, "error");
+            alert(`Error logging in: ${error.message}`);
         }
     });
 
-    // --- Google Sign-in/Sign-up (combined) ---
+    // Google Sign-in/Sign-up (combined)
     const googleProvider = new firebase.auth.GoogleAuthProvider();
 
     async function handleGoogleAuth() {
@@ -654,32 +611,33 @@
             const result = await auth.signInWithPopup(googleProvider);
             const user = result.user;
 
-            // Check if the user already exists in Realtime Database
-            const userRef = database.ref('users/' + user.uid);
-            const snapshot = await userRef.once('value'); // Use .once() for single read
+            // Check if the user already exists in Firestore users collection
+            const userRef = db.collection('users').doc(user.uid);
+            const doc = await userRef.get();
 
-            if (!snapshot.exists()) {
-                // If user is new (signed up with Google for the first time), add them to Realtime Database
+            if (!doc.exists) {
+                // If user is new (signed up with Google for the first time), add them to Firestore
                 await userRef.set({
                     name: user.displayName,
                     email: user.email,
-                    createdAt: firebase.database.ServerValue.TIMESTAMP // Use server timestamp
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
                 });
             }
 
-            displayMessage(`Welcome, ${user.displayName || user.email}!`, "success");
+            alert(`Welcome, ${user.displayName || user.email}!`);
             window.location.href = 'homepage.html'; // Redirect on successful Google login/signup
         } catch (error) {
             console.error("Error with Google sign-in:", error.message);
-            displayMessage(`Error with Google sign-in: ${error.message}`, "error");
+            alert(`Error with Google sign-in: ${error.message}`);
         }
     }
 
     document.getElementById('googleLogin').addEventListener('click', handleGoogleAuth);
     document.getElementById('googleSignup').addEventListener('click', handleGoogleAuth);
 
-    // Show about section on load (handled by onAuthStateChanged now)
-    // showSection(aboutSection); // Removed as onAuthStateChanged handles initial section display
+
+    // Show about section on load
+    showSection(aboutSection);
 </script>
 </body>
 </html>

@@ -472,7 +472,7 @@
     // Firebase SDK imports for Realtime Database and Auth
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
     import { getDatabase, ref, set, get, remove, onValue } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
-    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"; // signOut removed
 
     // --- Firebase Configuration ---
     // !!! IMPORTANT: Replace with your actual Firebase Realtime Database project configuration !!!
@@ -498,31 +498,16 @@
     const clearAllUsersBtn = document.getElementById('clearAllUsersBtn');
     const darkToggle = document.getElementById('darkToggle');
     const backToHomeButton = document.getElementById('backToHomeButton');
-    // const logoutButton = document.getElementById('logoutButton'); // Removed as per user request
 
-    // --- Admin Authentication Check ---
-    // !!! IMPORTANT: Replace "YOUR_ADMIN_UID_HERE" with the actual UID of your admin user !!!
-    // You can find this UID in your Firebase Console under Authentication.
-    const ADMIN_UID = "YOUR_ADMIN_UID_HERE"; 
-
+    // --- Authentication Check (Simplified: Requires any logged-in user) ---
     onAuthStateChanged(auth, (user) => {
         if (user) {
-            if (user.uid === ADMIN_UID) {
-                console.log("Admin user signed in:", user.uid);
-                loadUsersForAdminPanel();
-                // You can add other admin data loading functions here if needed
-            } else {
-                console.warn("Unauthorized access attempt. Redirecting to login.");
-                displayMessage("You are not authorized to view this page.", "error");
-                signOut(auth).then(() => {
-                    setTimeout(() => {
-                        window.location.href = 'index.html'; // Redirect to login page
-                    }, 2000);
-                });
-            }
+            console.log("User signed in:", user.uid);
+            loadUsersForAdminPanel();
+            // You can add other admin data loading functions here if needed
         } else {
             console.log("No user signed in. Redirecting to login.");
-            displayMessage("Please log in as an administrator.", "error");
+            // No specific "admin" message, just redirect if not authenticated at all
             setTimeout(() => {
                 window.location.href = 'index.html'; // Redirect to login page
             }, 2000);
@@ -723,10 +708,6 @@
                 window.location.href = 'homepage.html';
             });
         }
-
-        // The logout button and its listener are removed as per user request.
-        // If you need logout functionality, it should be handled from homepage.html
-        // or by directly redirecting to index.html which handles unauthenticated users.
 
         // Update footer year dynamically
         document.getElementById('currentYear').textContent = new Date().getFullYear();

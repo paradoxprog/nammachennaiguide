@@ -4,12 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Namma Chennai Guide | Home</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet"><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Namma Chennai Guide | Home</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         /* Variables and Reset */
@@ -252,9 +246,8 @@
             transform: translateY(-2px);
         }
 
-        /* Google Button Styles */
-        .google-btn {
-            background-color: #db4437; /* Google Red */
+        .google-signin-button {
+            background-color: #DB4437; /* Google red */
             color: white;
             border: none;
             padding: 15px;
@@ -271,16 +264,14 @@
             gap: 10px;
         }
 
-        .google-btn:hover {
-            background-color: #c23321; /* Darker Google Red */
+        .google-signin-button:hover {
+            background-color: #c0392b;
             transform: translateY(-2px);
         }
 
-        .google-btn img {
-            height: 24px;
-            width: 24px;
-            vertical-align: middle;
-            border-radius: 0; /* Override img border-radius for logo */
+        .google-signin-button img {
+            height: 20px;
+            width: 20px;
         }
 
         /* Dark Mode Toggle */
@@ -395,7 +386,7 @@
             p, ul li, input {
                 font-size: 15px;
             }
-            input[type="submit"], .google-btn {
+            input[type="submit"] {
                 padding: 12px;
                 font-size: 16px;
             }
@@ -449,8 +440,8 @@
             <input type="email" id="loginEmail" placeholder="Email" required />
             <input type="password" id="loginPassword" placeholder="Password" required />
             <input type="submit" value="Log In" />
-            <button type="button" id="googleLoginBtn" class="google-btn">
-                <img src="https://img.icons8.com/color/48/000000/google-logo.png" alt="Google logo"/>
+            <button type="button" id="googleLogin" class="google-signin-button">
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google logo">
                 Sign in with Google
             </button>
         </form>
@@ -463,8 +454,8 @@
             <input type="email" id="signupEmail" placeholder="Email" required />
             <input type="password" id="signupPassword" placeholder="Password" required />
             <input type="submit" value="Sign Up" />
-            <button type="button" id="googleSignupBtn" class="google-btn">
-                <img src="https://img.icons8.com/color/48/000000/google-logo.png" alt="Google logo"/>
+            <button type="button" id="googleSignup" class="google-signin-button">
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google logo">
                 Sign up with Google
             </button>
         </form>
@@ -475,27 +466,28 @@
     &copy; 2025 All rights reserved to Namma Chennai Guide
 </footer>
 
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
 <script>
-    // Firebase Configuration
+    // Your Firebase configuration
+    // Replace with your actual Firebase project configuration
     const firebaseConfig = {
-        apiKey: "AIzaSyA47Bvey7ewY21Xx-xoCIk3-gNr_X6OObw",
-        authDomain: "nammachennaiguide.firebaseapp.com",
-        projectId: "nammachennaiguide",
-        storageBucket: "nammachennaiguide.firebasestorage.app",
-        messagingSenderId: "441961341289",
-        appId: "1:441961341289:web:004cf40f9d52f540889df8",
-        measurementId: "G-HR8QTESJBF"
+        apiKey: "YOUR_API_KEY",
+        authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+        projectId: "YOUR_PROJECT_ID",
+        storageBucket: "YOUR_PROJECT_ID.appspot.com",
+        messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+        appId: "YOUR_APP_ID"
     };
 
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
+
+    // Get Firebase services
     const auth = firebase.auth();
-    const database = firebase.database();
-    const googleProvider = new firebase.auth.GoogleAuthProvider();
+    const db = firebase.firestore();
 
     // Section navigation
     const aboutSection = document.getElementById('about');
@@ -532,7 +524,7 @@
         showSection(signupSection);
     });
 
-    // Improved Dark mode toggle
+    // Dark mode toggle
     const darkToggle = document.getElementById('darkToggle');
 
     function applyDarkMode(isDark) {
@@ -554,146 +546,97 @@
         applyDarkMode(darkToggle.checked);
     });
 
-    // Signup form logic with Firebase Authentication and Realtime Database
-    document.getElementById('signupForm').addEventListener('submit', function(e) {
+    // Handle user state changes
+    auth.onAuthStateChanged(user => {
+        if (user) {
+            // User is signed in.
+            console.log("User is signed in:", user);
+            // Optionally redirect if they are already logged in when visiting this page
+            // window.location.href = 'homepage.html';
+        } else {
+            // User is signed out.
+            console.log("User is signed out.");
+        }
+    });
+
+    // Email/Password Signup form logic
+    document.getElementById('signupForm').addEventListener('submit', async function(e) {
         e.preventDefault();
         const name = document.getElementById('signupName').value.trim();
-        const email = document.getElementById('signupEmail').value.trim();
+        const email = document.getElementById('signupEmail').value.trim().toLowerCase();
         const password = document.getElementById('signupPassword').value;
 
-        auth.createUserWithEmailAndPassword(email, password)
-            .then((userCredential) => {
-                // Signed in successfully
-                const user = userCredential.user;
-                // Store user's name in Realtime Database
-                database.ref('users/' + user.uid).set({
-                    name: name,
-                    email: email
-                }).then(() => {
-                    alert('Account created successfully! Please log in.');
-                    this.reset();
-                    showSection(loginSection);
-                }).catch((error) => {
-                    console.error("Error writing to database: ", error);
-                    alert("Error creating account (database save failed): " + error.message);
-                    // You might want to delete the user from Auth here if database write fails
-                });
-            })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                console.error("Firebase Auth Error (Signup): ", errorCode, errorMessage);
-                alert("Error signing up: " + errorMessage);
+        try {
+            const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+            const user = userCredential.user;
+
+            // Save user info to Firestore
+            await db.collection('users').doc(user.uid).set({
+                name: name,
+                email: email,
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
             });
+
+            alert(`Account created successfully for ${name}! Please log in.`);
+            this.reset();
+            showSection(loginSection); // Redirect to login section after successful signup
+        } catch (error) {
+            console.error("Error signing up:", error.message);
+            alert(`Error creating account: ${error.message}`);
+        }
     });
 
-    // Login form logic with Firebase Authentication
-    document.getElementById('loginForm').addEventListener('submit', function(e) {
+    // Email/Password Login form logic
+    document.getElementById('loginForm').addEventListener('submit', async function(e) {
         e.preventDefault();
-        const email = document.getElementById('loginEmail').value.trim();
+        const email = document.getElementById('loginEmail').value.trim().toLowerCase();
         const password = document.getElementById('loginPassword').value;
 
-        auth.signInWithEmailAndPassword(email, password)
-            .then((userCredential) => {
-                // Signed in successfully
-                const user = userCredential.user;
-                alert(`Welcome back, ${user.email}!`);
-                // Redirect to homepage.html
-                window.location.href = 'homepage.html';
-            })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                console.error("Firebase Auth Error (Login): ", errorCode, errorMessage);
-                alert('Invalid email or password: ' + errorMessage);
-            });
+        try {
+            await auth.signInWithEmailAndPassword(email, password);
+            alert('Logged in successfully!');
+            window.location.href = 'homepage.html'; // Redirect on successful login
+        } catch (error) {
+            console.error("Error logging in:", error.message);
+            alert(`Error logging in: ${error.message}`);
+        }
     });
 
-    // Google Sign-in/Sign-up logic
-    document.getElementById('googleLoginBtn').addEventListener('click', () => {
-        auth.signInWithPopup(googleProvider)
-            .then((result) => {
-                // This gives you a Google Access Token. You can use it to access the Google API.
-                const credential = result.credential;
-                const user = result.user; // The signed-in user info.
-                const isNewUser = result.additionalUserInfo.isNewUser;
+    // Google Sign-in/Sign-up (combined)
+    const googleProvider = new firebase.auth.GoogleAuthProvider();
 
-                if (isNewUser) {
-                    // If it's a new user signing up with Google, save their info to DB
-                    database.ref('users/' + user.uid).set({
-                        name: user.displayName,
-                        email: user.email
-                    }).then(() => {
-                        alert(`Welcome, ${user.displayName}! Your account has been created via Google.`);
-                        // Redirect after successful new user creation and data save
-                        window.location.href = 'homepage.html';
-                    }).catch((error) => {
-                        console.error("Error writing Google user to database: ", error);
-                        alert("Error saving user data to database.");
-                    });
-                } else {
-                    alert(`Welcome back, ${user.displayName || user.email}!`);
-                    // Redirect for existing Google user login
-                    window.location.href = 'homepage.html';
-                }
-            })
-            .catch((error) => {
-                // Handle Errors here.
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                console.error("Firebase Google Auth Error: ", errorCode, errorMessage);
-                if (errorCode === 'auth/popup-closed-by-user') {
-                    alert('Google sign-in cancelled.');
-                } else {
-                    alert('Error signing in with Google: ' + errorMessage);
-                }
-            });
-    });
+    async function handleGoogleAuth() {
+        try {
+            const result = await auth.signInWithPopup(googleProvider);
+            const user = result.user;
 
-    document.getElementById('googleSignupBtn').addEventListener('click', () => {
-        // For Google, signup and login are handled by the same method
-        // signInWithPopup automatically creates an account if it doesn't exist.
-        auth.signInWithPopup(googleProvider)
-            .then((result) => {
-                const user = result.user; // The signed-in user info.
-                const isNewUser = result.additionalUserInfo.isNewUser;
+            // Check if the user already exists in Firestore users collection
+            const userRef = db.collection('users').doc(user.uid);
+            const doc = await userRef.get();
 
-                if (isNewUser) {
-                    // If it's a new user signing up with Google, save their info to DB
-                    database.ref('users/' + user.uid).set({
-                        name: user.displayName,
-                        email: user.email
-                    }).then(() => {
-                        alert(`Welcome, ${user.displayName}! Your account has been created via Google.`);
-                        // Redirect after successful new user creation and data save
-                        window.location.href = 'homepage.html';
-                    }).catch((error) => {
-                        console.error("Error writing Google user to database: ", error);
-                        alert("Error saving user data to database.");
-                    });
-                } else {
-                    alert(`You are already signed up! Welcome back, ${user.displayName || user.email}!`);
-                    // Redirect for existing Google user who might click signup button
-                    window.location.href = 'homepage.html';
-                }
-            })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                console.error("Firebase Google Auth Error: ", errorCode, errorMessage);
-                if (errorCode === 'auth/popup-closed-by-user') {
-                    alert('Google sign-up cancelled.');
-                } else {
-                    alert('Error signing up with Google: ' + errorMessage);
-                }
-            });
-    });
+            if (!doc.exists) {
+                // If user is new (signed up with Google for the first time), add them to Firestore
+                await userRef.set({
+                    name: user.displayName,
+                    email: user.email,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+            }
+
+            alert(`Welcome, ${user.displayName || user.email}!`);
+            window.location.href = 'homepage.html'; // Redirect on successful Google login/signup
+        } catch (error) {
+            console.error("Error with Google sign-in:", error.message);
+            alert(`Error with Google sign-in: ${error.message}`);
+        }
+    }
+
+    document.getElementById('googleLogin').addEventListener('click', handleGoogleAuth);
+    document.getElementById('googleSignup').addEventListener('click', handleGoogleAuth);
 
 
     // Show about section on load
     showSection(aboutSection);
 </script>
-
 </body>
 </html>
-    

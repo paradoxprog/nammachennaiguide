@@ -4,519 +4,478 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Namma Chennai Guide | Admin</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Variables and Reset - Copied from index.html */
+        /* --- CSS Variables (Namma Chennai Guide Themed) --- */
         :root {
-            --primary-color: #007bff; /* A more vibrant blue */
+            --primary-color: #007bff; /* A vibrant blue for Namma Chennai Guide */
             --primary-hover: #0056b3;
-            --bg-light: #f8f9fa; /* Lighter background for overall page */
-            --bg-dark: #212529; /* Darker background for dark mode */
+            --secondary-color: #28a745; /* Green for success/actions */
+            --danger-color: #dc3545; /* Red for delete actions */
+            --danger-hover: #c82333;
+            --bg-light: #f8f9fa;
+            --bg-dark: #212529;
             --card-bg-light: #ffffff;
             --card-bg-dark: #343a40;
             --text-color-light: #343a40;
-            --text-color-dark: #f8f9fa;
+            --text-color-dark: #f1f1f1;
             --border-color-light: #e0e0e0;
             --border-color-dark: #495057;
             --shadow-light: rgba(0, 0, 0, 0.1);
-            --shadow-dark: rgba(0, 0, 0, 0.5);
+            --shadow-dark: rgba(0, 0, 0, 0.4);
             --header-bg-light: #ffffff;
             --header-bg-dark: #2a2a2a;
+            --success-bg: #d1fae5;
+            --success-text: #065f46;
+            --error-bg: #fee2e2;
+            --error-text: #991b1b;
         }
 
+        body.dark {
+            --primary-color: #66b3ff; /* Lighter blue for dark mode */
+            --primary-hover: #3399ff;
+            --secondary-color: #5cb85c;
+            --danger-color: #ff6666;
+            --danger-hover: #ff3333;
+            --bg-light: #1a1a1a;
+            --bg-dark: #121212;
+            --card-bg-light: #2c2c2c;
+            --card-bg-dark: #1f1f1f;
+            --text-color-light: #e0e0e0;
+            --text-color-dark: #f5f5f5;
+            --border-color-light: #3a3a3a;
+            --border-color-dark: #555555;
+            --shadow-light: rgba(0, 0, 0, 0.5);
+            --shadow-dark: rgba(0, 0, 0, 0.7);
+            --header-bg-light: #2c2c2c;
+            --header-bg-dark: #1a1a1a;
+            --success-bg: #065f46;
+            --success-text: #d1fae5;
+            --error-bg: #991b1b;
+            --error-text: #fee2e2;
+        }
+
+        /* General Styles */
         body {
             font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
             background-color: var(--bg-light);
             color: var(--text-color-light);
-            transition: background-color 0.4s ease, color 0.4s ease;
+            transition: background-color .3s ease, color .3s ease;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
+        *, *:before, *:after { box-sizing: border-box; }
 
-        /* Dark Mode Styles */
-        body.dark {
-            --bg-light: #1a1a1a;
-            --bg-dark: #0d0d0d;
-            --card-bg-light: #2c2c2c;
-            --card-bg-dark: #1f1f1f;
-            --text-color-light: #e0e0e0;
-            --text-color-dark: #f0f0f0;
-            --border-color-light: #3a3a3a;
-            --border-color-dark: #555;
-            --shadow-light: rgba(0, 0, 0, 0.7);
-            --shadow-dark: rgba(0, 0, 0, 0.9);
-            --header-bg-light: #2c2c2c;
-            --header-bg-dark: #1a1a1a;
-        }
-
-        /* Global Styles */
-        *, *::before, *::after {
-            box-sizing: border-box;
-        }
-
-        /* Header */
         header {
             width: 100%;
             background-color: var(--header-bg-light);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 15px 40px;
-            box-shadow: 0 4px 12px var(--shadow-light);
+            padding: 12px 30px;
+            box-shadow: 0 2px 8px var(--shadow-light);
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 1000;
+            transition: background-color .3s ease;
         }
-
-        header .logo-container {
-            display: flex;
-            align-items: center;
-        }
-
-        header img {
-            height: 60px; /* Reduced logo size */
-            margin-right: 15px;
-            border-radius: 8px; /* Slightly rounded corners for logo */
-        }
-
-        header h1 {
-            font-size: 28px;
-            color: var(--text-color-light);
-            margin: 0;
-            font-weight: 700;
-        }
-
-        nav {
-            display: flex;
-            align-items: center;
-        }
-
-        nav button { /* Changed from 'a' to 'button' for logout */
-            margin-left: 30px;
+        header .logo-container { display: flex; align-items: center; }
+        header img.logo { height: 70px; margin-right: 12px; border-radius: 6px; }
+        header h1.app-title { font-size: 22px; color: var(--text-color-light); margin: 0; font-weight: 700; }
+        body.dark header h1.app-title { color: var(--text-color-dark); }
+        header nav { display: flex; align-items: center; gap: 20px; } /* Added gap for spacing */
+        header nav button, header nav a { /* Combined styles for buttons and links in nav */
             text-decoration: none;
             color: var(--text-color-light);
-            font-weight: 600;
-            font-size: 16px;
-            transition: color 0.3s ease;
-            position: relative;
+            font-weight: 500;
+            font-size: 15px;
+            transition: color .3s ease;
             background: none;
             border: none;
             cursor: pointer;
             padding: 0;
         }
-
-        nav button::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            display: block;
-            margin-top: 5px;
-            right: 0;
-            background: var(--primary-color);
-            transition: width 0.3s ease;
+        body.dark header nav button, body.dark header nav a { color: var(--text-color-dark); }
+        header nav button:hover, header nav a:hover { color: var(--primary-color); }
+        .app-mode-header {
+            font-size: 11px;
+            color: var(--text-color-light);
+            margin-left: 20px;
+            padding: 5px 8px;
+            background-color: var(--bg-light);
+            border: 1px solid var(--border-color-light);
+            border-radius: 4px;
+        }
+        body.dark .app-mode-header {
+            color: var(--text-color-dark);
+            background-color: var(--bg-dark);
+            border-color: var(--border-color-dark);
         }
 
-        nav button:hover::after {
-            width: 100%;
-            left: 0;
-            background: var(--primary-color);
-        }
-        nav button:hover {
-            color: var(--primary-color);
-        }
-
-        /* Main Content Area */
         main {
             width: 100%;
-            max-width: 960px; /* Increased max-width for content */
-            padding: 40px 20px;
-            margin: 40px auto;
+            max-width: 1000px; /* Adjusted max-width */
+            padding: 30px 20px;
+            margin: 30px auto;
             background-color: var(--card-bg-light);
-            border-radius: 12px;
-            box-shadow: 0 8px 25px var(--shadow-light);
+            border-radius: 10px;
+            box-shadow: 0 6px 20px var(--shadow-light);
             overflow: hidden;
             position: relative;
+            transition: background-color .3s ease, box-shadow .3s ease;
         }
-
-        /* Section Transitions */
-        section {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-            padding: 20px;
-            max-width: 700px; /* Limit text width for readability */
-            margin: 0 auto; /* Center content */
-        }
-
-        section.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        h2 {
+        h2.section-title {
             text-align: center;
-            margin-bottom: 35px;
-            font-weight: 700;
-            color: var(--primary-color);
-            font-size: 32px;
-        }
-
-        h3, h4 {
-            color: var(--text-color-light);
-            margin-top: 30px;
-            margin-bottom: 15px;
-            font-weight: 600;
-        }
-        h3 { font-size: 24px; }
-        h4 { font-size: 20px; }
-
-        p {
-            font-size: 16px;
-            line-height: 1.7;
-            margin-bottom: 15px;
-            color: var(--text-color-light);
-        }
-
-        ul {
-            list-style: none;
-            padding-left: 0;
             margin-bottom: 30px;
+            font-weight: 600;
+            color: var(--primary-color);
+            font-size: 28px;
+            border-bottom: 2px solid var(--border-color-light);
+            padding-bottom: 10px;
         }
-
-        ul li {
-            background-color: var(--bg-light); /* Lighter background for list items */
-            padding: 15px 25px;
+        body.dark h2.section-title { border-bottom-color: var(--border-color-dark); }
+        h3 {
+            color: var(--text-color-light);
+            margin-top: 25px;
             margin-bottom: 12px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px var(--shadow-light);
+            font-weight: 600;
+            font-size: 22px;
+        }
+        body.dark h3 { color: var(--text-color-dark); }
+        p {
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            color: var(--text-color-light);
+        }
+        body.dark p { color: var(--text-color-dark); }
+
+        button.action-button { /* Renamed from generic 'button' to 'action-button' for clarity */
+            background-color: var(--primary-color);
+            color: #fff;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 6px;
+            font-size: 15px;
+            cursor: pointer;
             font-weight: 500;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            border-left: 4px solid var(--primary-color);
+            transition: background-color .3s ease, transform .2s ease;
+            text-align: center;
+            margin-bottom: 10px;
         }
-        ul li:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 12px var(--shadow-light);
+        button.action-button:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-1px);
         }
+        .btn-danger { background-color: var(--danger-color); color: #fff; }
+        .btn-danger:hover { background-color: var(--danger-hover); }
 
-        /* Forms */
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 15px; /* Spacing between form elements */
-        }
-
-        input[type="text"],
-        input[type="email"],
-        input[type="password"] {
+        .admin-card { /* Generic card style for admin items */
             background-color: var(--card-bg-light);
             border: 1px solid var(--border-color-light);
+            padding: 20px;
+            margin-bottom: 20px;
             border-radius: 8px;
-            padding: 14px 18px;
-            font-size: 16px;
-            color: var(--text-color-light);
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-            width: 100%;
-        }
-
-        input[type="text"]:focus,
-        input[type="email"]:focus,
-        input[type="password"]:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25); /* Focus ring effect */
-        }
-
-        input[type="submit"], button.action-button { /* Added .action-button for general buttons */
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 15px;
-            border-radius: 8px;
-            font-size: 18px;
-            cursor: pointer;
-            font-weight: 700;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            width: 100%;
-            margin-top: 10px;
-        }
-
-        input[type="submit"]:hover, button.action-button:hover {
-            background-color: var(--primary-hover);
-            transform: translateY(-2px);
-        }
-
-        .google-signin-button {
-            background-color: #DB4437; /* Google red */
-            color: white;
-            border: none;
-            padding: 15px;
-            border-radius: 8px;
-            font-size: 18px;
-            cursor: pointer;
-            font-weight: 700;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            width: 100%;
-            margin-top: 10px;
+            box-shadow: 0 4px 10px var(--shadow-light);
             display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
+            flex-direction: column;
+            gap: 8px;
         }
-
-        .google-signin-button:hover {
-            background-color: #c0392b;
-            transform: translateY(-2px);
+        body.dark .admin-card {
+            background-color: var(--card-bg-dark);
+            border-color: var(--border-color-dark);
         }
+        /* Specific card styles for different data types */
+        .admin-user-card { border-left: 5px solid var(--primary-color); }
 
-        .google-signin-button img {
-            height: 20px;
-            width: 20px;
+
+        .admin-card h4 { /* Card titles */
+            margin-top: 0;
+            font-size: 18px;
+            color: var(--primary-color);
+            margin-bottom: 8px;
         }
+        .admin-user-card h4 { color: var(--primary-color); } /* Keep primary color for user card titles */
 
-        /* Dark Mode Toggle */
+
+        .admin-card p { font-size: 13px; margin-bottom: 3px; color: var(--text-color-light); }
+        body.dark .admin-card p { color: var(--text-color-dark); }
+        .admin-user-card p { color: var(--text-color-light); } /* Ensure user text color */
+        body.dark .admin-user-card p { color: var(--text-color-dark); }
+
+
+        .admin-card .timestamp { font-size: 11px; color: #9ca3af; margin-top: 5px; }
+        body.dark .admin-card .timestamp { color: #6b7280; }
+
+
+        .admin-actions { display: flex; gap: 10px; margin-top: 15px; justify-content: flex-end; }
+        .admin-actions button { padding: 8px 12px; font-size: 13px; margin-bottom: 0; }
+        #clearAllUsersBtn {
+            display: block;
+            margin: 25px auto 15px auto;
+            padding: 12px 22px;
+            font-size: 15px;
+            background-color: var(--danger-color);
+        }
+        #clearAllUsersBtn:hover { background-color: var(--danger-hover); }
+
+        .section-divider { border-top: 2px dashed var(--border-color-light); margin: 40px 0; }
+        body.dark .section-divider { border-top-color: var(--border-color-dark); }
+
+        .toggle-dark-container { margin-left: 20px; }
         .toggle-dark {
             position: relative;
             display: inline-block;
-            width: 55px; /* Increased width */
-            height: 30px; /* Increased height */
-            border-radius: 30px;
+            width: 50px;
+            height: 26px;
+            border-radius: 26px;
             background-color: var(--border-color-light);
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: background-color .3s ease;
             vertical-align: middle;
-            margin-left: 20px;
-            border: none;
-            box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+            border: 1px solid var(--border-color-light);
         }
-
-        .toggle-dark input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-            position: absolute;
-            left: -9999px;
-        }
-
+        body.dark .toggle-dark { background-color: var(--border-color-dark); border-color: var(--border-color-dark); }
+        .toggle-dark input { opacity: 0; width: 0; height: 0; }
         .toggle-thumb {
             position: absolute;
-            top: 3px;
-            left: 3px;
-            width: 24px; /* Increased size */
-            height: 24px; /* Increased size */
+            top: 2px;
+            left: 2px;
+            width: 22px;
+            height: 22px;
             background-color: var(--primary-color);
             border-radius: 50%;
-            transition: left 0.3s ease, background-color 0.3s ease, transform 0.2s ease;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: transform .3s ease-in-out, background-color .3s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,.2);
         }
+        body.dark .toggle-thumb { background-color: #f0f0f0; } /* Light thumb in dark mode */
+        .toggle-dark input:checked + .toggle-thumb { transform: translateX(24px); }
 
-        .toggle-dark input:checked + .toggle-thumb {
-            left: 28px; /* Adjusted position for larger thumb */
-            background-color: #f0f0f0;
-            transform: rotate(360deg);
-        }
-        .toggle-dark input:checked {
-            background-color: var(--primary-color);
-        }
-
-        /* Footer */
         footer {
             width: 100%;
-            padding: 20px;
+            padding: 25px 20px;
             text-align: center;
             background-color: var(--header-bg-light);
             color: var(--text-color-light);
             font-size: 14px;
-            margin-top: auto; /* Pushes footer to the bottom */
+            margin-top: auto;
             box-shadow: 0 -2px 8px var(--shadow-light);
             border-top: 1px solid var(--border-color-light);
+            transition: background-color .3s ease, color .3s ease, border-color .3s ease;
         }
+        body.dark footer { background-color: var(--header-bg-dark); color: var(--text-color-dark); border-top-color: var(--border-color-dark); }
 
-        /* Admin Specific Styles */
-        #feedback-list, #user-list {
-            list-style: none;
-            padding: 0;
+        #messageContainer { margin-bottom: 20px; padding: 0 15px; }
+        .message { padding: 12px 18px; border-radius: 6px; font-size: 15px; margin-bottom: 15px; text-align: center; }
+        .message.success { background-color: var(--success-bg); color: var(--success-text); border: 1px solid var(--success-text); }
+        .message.error { background-color: var(--error-bg); color: var(--error-text); border: 1px solid var(--error-text); }
+        .message.info { background-color: #e0f2fe; color: #0284c7; border: 1px solid #7dd3fc; } /* Added info message style */
+
+        #loadingIndicator {
+            border: 3px solid var(--border-color-light);
+            border-top: 3px solid var(--primary-color);
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            animation: spin .8s linear infinite;
+            margin: 20px auto;
+            display: block;
         }
+        body.dark #loadingIndicator { border-color: var(--border-color-dark); border-top-color: var(--primary-color); }
+        @keyframes spin { 0% { transform: rotate(0); } 100% { transform: rotate(360deg); } }
 
-        #feedback-list li, #user-list li {
-            background-color: var(--bg-light);
-            padding: 15px 25px;
-            margin-bottom: 12px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px var(--shadow-light);
-            border-left: 4px solid var(--primary-color);
+        /* Custom Modal Styles (from previous admin.html) */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
             display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-        #feedback-list li:hover, #user-list li:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 12px var(--shadow-light);
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
         }
 
-        .feedback-item p, .user-item p {
-            margin: 0;
-            font-size: 15px;
+        .modal-overlay.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background-color: var(--card-bg-light);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            transform: translateY(-20px);
+            transition: transform 0.3s ease;
+            position: relative;
+            border: 1px solid var(--border-color-light);
+        }
+
+        .modal-overlay.visible .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-content h4 {
+            margin-top: 0;
+            color: var(--primary-color);
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .modal-content p {
+            margin-bottom: 25px;
             color: var(--text-color-light);
+            font-size: 16px;
         }
 
-        .feedback-item .meta, .user-item .meta {
-            font-size: 12px;
-            color: #888;
-            margin-top: 5px;
+        .modal-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
         }
 
-        .feedback-item button, .user-item button {
-            background-color: #dc3545; /* Red for delete */
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
+        .modal-buttons button {
+            flex: 1;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
             cursor: pointer;
-            font-size: 14px;
-            width: auto;
-            align-self: flex-end; /* Align to the right */
-            margin-top: 10px;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+            width: auto; /* Override 100% width from general button style */
+            margin: 0; /* Remove default margin */
         }
 
-        .feedback-item button:hover, .user-item button:hover {
-            background-color: #c82333;
+        .modal-buttons .confirm-yes {
+            background-color: var(--danger-color);
+            color: white;
+        }
+
+        .modal-buttons .confirm-yes:hover {
+            background-color: var(--danger-hover);
             transform: translateY(-1px);
         }
 
-        #admin-message {
-            text-align: center;
-            padding: 10px;
-            margin-top: 20px;
-            border-radius: 8px;
-            font-weight: 600;
-            display: none; /* Hidden by default */
+        .modal-buttons .confirm-no {
+            background-color: var(--bg-light);
+            color: var(--text-color-light);
+            border: 1px solid var(--border-color-light);
         }
 
-        #admin-message.success {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
+        .modal-buttons .confirm-no:hover {
+            background-color: var(--border-color-light);
+            transform: translateY(-1px);
         }
 
-        #admin-message.error {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
 
-        /* Responsive Design - Copied from index.html */
+        /* Responsive Design */
         @media (max-width: 768px) {
-            header {
-                flex-direction: column;
-                padding: 15px 20px;
-                text-align: center;
-            }
-            header .logo-container {
-                margin-bottom: 15px;
-            }
-            nav {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            nav button { /* Changed from 'a' to 'button' for logout */
-                margin: 0 15px 10px;
-            }
-            header h1 {
-                font-size: 24px;
-            }
-            main {
-                margin: 20px auto;
-                padding: 20px 15px;
-            }
-            h2 {
-                font-size: 28px;
-                margin-bottom: 25px;
-            }
-            ul li {
-                padding: 12px 18px;
-            }
+            header { flex-direction: column; padding: 15px 20px; text-align: center; }
+            header .logo-container { margin-bottom: 10px; }
+            header nav { margin-top: 10px; flex-wrap: wrap; justify-content: center; }
+            header nav button, header nav a { margin: 5px 10px; } /* Adjust spacing for small screens */
+            .app-mode-header { margin-left: 0; margin-top: 10px; width: 100%; text-align: center; }
+            header h1.app-title { font-size: 22px; }
+            main { margin: 20px 10px; padding: 20px 15px; }
+            h2.section-title { font-size: 24px; }
+            .modal-content { padding: 20px; }
+            .modal-buttons { flex-direction: column; } /* Stack buttons on small screens */
+            .modal-buttons button { width: 100%; margin-bottom: 10px; }
         }
-
         @media (max-width: 480px) {
-            header img {
-                height: 50px;
-            }
-            header h1 {
-                font-size: 20px;
-            }
-            nav button { /* Changed from 'a' to 'button' for logout */
-                margin: 0 10px 8px;
-                font-size: 14px;
-            }
-            main {
-                padding: 15px;
-                margin: 15px;
-            }
-            h2 {
-                font-size: 24px;
-            }
-            p, ul li, input {
-                font-size: 15px;
-            }
-            input[type="submit"], button.action-button {
-                padding: 12px;
-                font-size: 16px;
-            }
+            header img.logo { height: 50px; }
+            header h1.app-title { font-size: 20px; }
+            button.action-button { font-size: 14px; padding: 10px 12px; }
+            .admin-card { padding: 15px; }
+            .admin-card h4 { font-size: 16px; }
+            .admin-actions button { font-size: 12px; padding: 6px 10px; }
+            #clearAllUsersBtn { font-size: 14px; padding: 10px 20px; }
+            .modal-buttons button { font-size: 14px; padding: 8px 15px; }
         }
     </style>
 </head>
 <body>
 
+<!-- Custom Confirmation Modal HTML -->
+<div id="customConfirmModal" class="modal-overlay">
+    <div class="modal-content">
+        <h4 id="confirmModalTitle">Confirm Action</h4>
+        <p id="confirmModalMessage">Are you sure you want to proceed?</p>
+        <div class="modal-buttons">
+            <button class="action-button confirm-yes">Yes</button>
+            <button class="action-button confirm-no">No</button>
+        </div>
+    </div>
+</div>
+
 <header>
     <div class="logo-container">
-        <img src="https://placehold.co/60x60/007bff/ffffff?text=LOGO" alt="Namma Chennai Guide Logo" /> <!-- Placeholder logo -->
-        <h1>Namma Chennai Guide - Admin</h1>
+        <img src="https://placehold.co/70x70/007bff/ffffff?text=NCG" alt="Namma Chennai Guide Logo" class="logo" />
+        <h1 class="app-title">Namma Chennai Guide - Admin</h1>
     </div>
     <nav>
-        <button id="logoutButton" class="action-button">Log Out</button>
+        <button id="backToHomeButton" class="action-button">Back to Home</button>
+        <!-- Logout button removed as per user request -->
+    </nav>
+    <div class="app-mode-header">
+        <span>Mode: Admin (Realtime DB)</span>
+    </div>
+    <div class="toggle-dark-container">
         <label class="toggle-dark" for="darkToggle" aria-label="Toggle dark mode">
             <input type="checkbox" id="darkToggle" />
             <span class="toggle-thumb"></span>
         </label>
-    </nav>
+    </div>
 </header>
 
 <main>
-    <section id="admin-dashboard" class="active">
-        <h2>Admin Dashboard</h2>
-        <p id="admin-message"></p>
+    <div id="messageContainer"></div>
+    <div id="loadingIndicator"></div>
 
-        <h3>Registered Users</h3>
-        <p><em>Note: Deleting a user here only removes their record from Firestore. It does NOT delete the user from Firebase Authentication. For full user management, a backend solution with Firebase Admin SDK is required.</em></p>
-        <ul id="user-list">
-            <!-- User data will be loaded here -->
-            <p>Loading users...</p>
-        </ul>
+    <section id="adminPanelSection">
+        <h2 class="section-title">Admin Panel</h2>
 
-        <h3>User Feedback</h3>
-        <ul id="feedback-list">
-            <!-- Feedback data will be loaded here -->
-            <p>Loading feedback...</p>
-        </ul>
+        <h3>Registered Users (Realtime Database)</h3>
+        <p><em>Note: Deleting a user here only removes their record from the Realtime Database. It does NOT delete the user from Firebase Authentication. For full user management, a backend solution with Firebase Admin SDK is required.</em></p>
+        <div id="adminUsersListContainer">
+            <p class="no-users-message" style="text-align:center;">Loading user credentials or none registered yet...</p>
+        </div>
+        <button id="clearAllUsersBtn" class="action-button btn-danger">Clear All User Records</button>
+
+        <div class="section-divider"></div>
+        <p style="text-align:center; font-style:italic; font-size:0.9em;">
+            Additional admin sections (e.g., managing feedback, content) can be added here.
+        </p>
+
     </section>
+
 </main>
 
 <footer>
-    &copy; 2025 All rights reserved to Namma Chennai Guide
+    &copy; <span id="currentYear"></span> Namma Chennai Guide. Admin Panel
 </footer>
 
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script type="module">
+    // Firebase SDK imports for Realtime Database and Auth
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+    import { getDatabase, ref, set, get, remove, onValue } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
 
-<script>
-    // Your Firebase configuration
-    // Replace with your actual Firebase project configuration
+    // --- Firebase Configuration ---
+    // !!! IMPORTANT: Replace with your actual Firebase Realtime Database project configuration !!!
     const firebaseConfig = {
       apiKey: "AIzaSyA47Bvey7ewY21Xx-xoCIk3-gNr_X6OObw",
       authDomain: "nammachennaiguide.firebaseapp.com",
@@ -528,27 +487,34 @@
     };
 
     // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+    const auth = getAuth(app);
 
-    // Get Firebase services
-    const auth = firebase.auth();
-    const db = firebase.firestore();
+    // --- DOM Elements ---
+    const adminUsersListContainer = document.getElementById('adminUsersListContainer');
+    const loadingIndicator = document.getElementById('loadingIndicator');
+    const messageContainer = document.getElementById('messageContainer');
+    const clearAllUsersBtn = document.getElementById('clearAllUsersBtn');
+    const darkToggle = document.getElementById('darkToggle');
+    const backToHomeButton = document.getElementById('backToHomeButton');
+    // const logoutButton = document.getElementById('logoutButton'); // Removed as per user request
 
     // --- Admin Authentication Check ---
     // !!! IMPORTANT: Replace "YOUR_ADMIN_UID_HERE" with the actual UID of your admin user !!!
     // You can find this UID in your Firebase Console under Authentication.
     const ADMIN_UID = "YOUR_ADMIN_UID_HERE"; 
 
-    auth.onAuthStateChanged(user => {
+    onAuthStateChanged(auth, (user) => {
         if (user) {
             if (user.uid === ADMIN_UID) {
                 console.log("Admin user signed in:", user.uid);
-                loadUsers();
-                loadFeedback();
+                loadUsersForAdminPanel();
+                // You can add other admin data loading functions here if needed
             } else {
                 console.warn("Unauthorized access attempt. Redirecting to login.");
                 displayMessage("You are not authorized to view this page.", "error");
-                auth.signOut().then(() => {
+                signOut(auth).then(() => {
                     setTimeout(() => {
                         window.location.href = 'index.html'; // Redirect to login page
                     }, 2000);
@@ -563,172 +529,209 @@
         }
     });
 
-    // --- Dark Mode Toggle (Copied from index.html) ---
-    const darkToggle = document.getElementById('darkToggle');
-
+    // --- Dark Mode Toggle Logic ---
     function applyDarkMode(isDark) {
         if (isDark) {
             document.body.classList.add('dark');
-            darkToggle.checked = true;
-            localStorage.setItem('darkMode', 'enabled');
+            localStorage.setItem('nammaChennaiAdminDarkMode', 'enabled');
         } else {
             document.body.classList.remove('dark');
-            darkToggle.checked = false;
-            localStorage.removeItem('darkMode');
+            localStorage.removeItem('nammaChennaiAdminDarkMode');
         }
+        if (darkToggle) darkToggle.checked = isDark;
     }
 
     // Initialize toggle state from localStorage on page load
-    applyDarkMode(localStorage.getItem('darkMode') === 'enabled');
+    applyDarkMode(localStorage.getItem('nammaChennaiAdminDarkMode') === 'enabled');
 
-    darkToggle.addEventListener('change', () => {
-        applyDarkMode(darkToggle.checked);
-    });
-
-    // --- Logout Functionality ---
-    document.getElementById('logoutButton').addEventListener('click', () => {
-        auth.signOut().then(() => {
-            displayMessage("Logged out successfully!", "success");
-            setTimeout(() => {
-                window.location.href = 'index.html'; // Redirect to login page
-            }, 1500);
-        }).catch((error) => {
-            console.error("Error logging out:", error.message);
-            displayMessage(`Error logging out: ${error.message}`, "error");
-        });
-    });
-
-    // --- Load Users ---
-    function loadUsers() {
-        const userList = document.getElementById('user-list');
-        userList.innerHTML = '<p>Loading users...</p>'; // Initial loading message
-
-        // Listen for real-time updates to the 'users' collection
-        // Assuming user data is stored in a top-level 'users' collection as per index.html
-        db.collection('users').onSnapshot((snapshot) => {
-            userList.innerHTML = ''; // Clear previous list
-            if (snapshot.empty) {
-                userList.innerHTML = '<p>No registered users found.</p>';
-                return;
-            }
-            snapshot.forEach((doc) => {
-                const userData = doc.data();
-                const userId = doc.id; // Get the user's UID (document ID)
-                const userItem = document.createElement('li');
-                userItem.className = 'user-item';
-                userItem.innerHTML = `
-                    <p><strong>Name:</strong> ${userData.name || 'N/A'}</p>
-                    <p><strong>Email:</strong> ${userData.email || 'N/A'}</p>
-                    <p><strong>User ID:</strong> ${userId}</p>
-                    <p class="meta">Registered: ${userData.createdAt ? new Date(userData.createdAt.toDate()).toLocaleString() : 'N/A'}</p>
-                    <button data-id="${userId}" class="delete-user-btn">Delete User Record</button>
-                `;
-                userList.appendChild(userItem);
-            });
-
-            // Attach event listeners for delete buttons
-            document.querySelectorAll('.delete-user-btn').forEach(button => {
-                button.onclick = (e) => deleteUser(e.target.dataset.id);
-            });
-        }, (error) => {
-            console.error("Error fetching users:", error);
-            userList.innerHTML = `<p class="error-message">Error loading users: ${error.message}</p>`;
-            displayMessage(`Error loading users: ${error.message}`, "error");
+    if (darkToggle) {
+        darkToggle.addEventListener('change', () => {
+            applyDarkMode(darkToggle.checked);
         });
     }
 
-    // --- Delete User (Admin Only) ---
-    async function deleteUser(userIdToDelete) {
-        // IMPORTANT: Deleting users via client-side is highly insecure and not recommended for production.
-        // This only deletes the user's document from the 'users' Firestore collection.
-        // It does NOT delete the user from Firebase Authentication.
-        // For full user deletion (Auth + Firestore), a backend function using Firebase Admin SDK is required.
-
-        if (!confirm("Are you sure you want to delete this user's data? This will only remove their record from Firestore, not their Firebase Authentication account.")) {
-            return;
-        }
-
-        try {
-            await db.collection('users').doc(userIdToDelete).delete();
-            displayMessage("User record deleted successfully from Firestore.", "success");
-        } catch (error) {
-            console.error("Error deleting user record:", error);
-            displayMessage(`Error deleting user record: ${error.message}`, "error");
-        }
-    }
-
-    // --- Load Feedback ---
-    function loadFeedback() {
-        const feedbackList = document.getElementById('feedback-list');
-        feedbackList.innerHTML = '<p>Loading feedback...</p>'; // Initial loading message
-
-        // Listen for real-time updates to the 'feedback' collection
-        // Assuming feedback is stored in a top-level 'feedback' collection
-        db.collection('feedback').onSnapshot((snapshot) => {
-            feedbackList.innerHTML = ''; // Clear previous list
-            if (snapshot.empty) {
-                feedbackList.innerHTML = '<p>No feedback submitted yet.</p>';
-                return;
-            }
-            snapshot.forEach((doc) => {
-                const feedbackData = doc.data();
-                const feedbackId = doc.id;
-                const feedbackItem = document.createElement('li');
-                feedbackItem.className = 'feedback-item';
-                feedbackItem.innerHTML = `
-                    <p><strong>Rating:</strong> ${feedbackData.rating}/5</p>
-                    <p><strong>Comments:</strong> ${feedbackData.comments}</p>
-                    <p class="meta">User ID: ${feedbackData.userId || 'N/A'} | Submitted: ${feedbackData.timestamp ? new Date(feedbackData.timestamp.toDate()).toLocaleString() : 'N/A'}</p>
-                    <button data-id="${feedbackId}" class="delete-feedback-btn">Delete Feedback</button>
-                `;
-                feedbackList.appendChild(feedbackItem);
-            });
-
-            // Attach event listeners for delete buttons
-            document.querySelectorAll('.delete-feedback-btn').forEach(button => {
-                button.onclick = (e) => deleteFeedback(e.target.dataset.id);
-            });
-        }, (error) => {
-            console.error("Error fetching feedback:", error);
-            feedbackList.innerHTML = `<p class="error-message">Error loading feedback: ${error.message}</p>`;
-            displayMessage(`Error loading feedback: ${error.message}`, "error");
-        });
-    }
-
-    // --- Delete Feedback ---
-    async function deleteFeedback(feedbackId) {
-        if (!confirm("Are you sure you want to delete this feedback?")) {
-            return;
-        }
-        try {
-            await db.collection('feedback').doc(feedbackId).delete();
-            displayMessage("Feedback deleted successfully!", "success");
-        } catch (error) {
-            console.error("Error deleting feedback:", error);
-            displayMessage(`Error deleting feedback: ${error.message}`, "error");
-        }
-    }
-
-    // Custom message display function (replaces alert and confirm)
-    function displayMessage(message, type) {
-        const adminMessageDiv = document.getElementById("admin-message");
-        adminMessageDiv.innerText = message;
-        adminMessageDiv.className = `admin-message ${type}`; // Add type class for styling
-        adminMessageDiv.style.display = "block"; // Ensure it's visible
-
+    // --- Utility Functions for Messages and Loading ---
+    function displayMessage(text, type = 'info') {
+        if (!messageContainer) return;
+        messageContainer.innerHTML = `<div class="message ${type}">${text}</div>`;
         setTimeout(() => {
-            adminMessageDiv.innerText = "";
-            adminMessageDiv.style.display = "none"; // Hide after a delay
-            adminMessageDiv.className = "admin-message"; // Reset class
-        }, 3000);
+            messageContainer.innerHTML = '';
+        }, 5000); // Message disappears after 5 seconds
+    }
+
+    function showLoading() {
+        if (loadingIndicator) loadingIndicator.style.display = 'block';
+        if (adminUsersListContainer) adminUsersListContainer.innerHTML = '<p class="no-users-message" style="text-align:center;">Loading user credentials...</p>';
+    }
+
+    function hideLoading() {
+        if (loadingIndicator) loadingIndicator.style.display = 'none';
+    }
+
+    /**
+     * Renders a single user card for the admin panel.
+     * @param {Object} userData - The user data from Realtime Database.
+     * @param {string} uid - The user's UID (key in RTDB).
+     */
+    function renderUserCard(userData, uid) {
+        const card = document.createElement('div');
+        card.classList.add('admin-card', 'admin-user-card');
+        card.setAttribute('data-uid', uid);
+
+        card.innerHTML = `
+            <h4>User: ${userData.name || 'N/A'}</h4>
+            <p><strong>Email:</strong> ${userData.email || 'N/A'}</p>
+            <p><strong>Registered:</strong> ${new Date(userData.createdAt).toLocaleString()}</p>
+            <p><strong>UID:</strong> ${uid}</p>
+            <div class="admin-actions">
+                <button class="action-button btn-danger delete-user-btn" data-uid="${uid}">Delete Profile</button>
+            </div>
+        `;
+        return card;
+    }
+
+    /**
+     * Loads all user profiles from Realtime Database and displays them.
+     */
+    function loadUsersForAdminPanel() {
+        showLoading();
+        const usersRef = ref(database, 'users');
+
+        // Use onValue for real-time updates of the user list
+        onValue(usersRef, (snapshot) => {
+            hideLoading();
+            if (adminUsersListContainer) {
+                adminUsersListContainer.innerHTML = ''; // Clear existing list
+                if (snapshot.exists()) {
+                    snapshot.forEach((childSnapshot) => {
+                        const uid = childSnapshot.key;
+                        const userData = childSnapshot.val();
+                        adminUsersListContainer.appendChild(renderUserCard(userData, uid));
+                    });
+                } else {
+                    adminUsersListContainer.innerHTML = '<p class="no-users-message" style="text-align:center;">No user profiles registered yet.</p>';
+                }
+            }
+        }, (error) => {
+            hideLoading();
+            console.error("Error loading users:", error);
+            displayMessage('Error loading user data: ' + error.message, 'error');
+        });
+    }
+
+    /**
+     * Deletes a specific user's profile data from Realtime Database.
+     * Note: This *does not* delete the user from Firebase Authentication.
+     * Deleting a Firebase Auth user requires server-side logic (Firebase Admin SDK).
+     * @param {string} uid - The UID of the user profile to delete.
+     */
+    async function deleteUser(uid) {
+        const confirmed = await showConfirmModal(
+            "Delete User Profile",
+            `Are you sure you want to delete user profile with UID: ${uid}? This action cannot be undone.`
+        );
+
+        if (!confirmed) {
+            return;
+        }
+
+        try {
+            const userRef = ref(database, 'users/' + uid);
+            await remove(userRef);
+            displayMessage('User profile deleted successfully!', 'success');
+            // The onValue listener in loadUsersForAdminPanel will automatically re-render the list
+        } catch (error) {
+            console.error("Error deleting user profile:", error);
+            displayMessage('Failed to delete user profile: ' + error.message, "error");
+        }
+    }
+
+    /**
+     * Clears all user profiles from the Realtime Database's 'users' node.
+     * Again, this *does not* delete users from Firebase Authentication.
+     */
+    async function clearAllUsers() {
+        const confirmed = await showConfirmModal(
+            "Clear All User Records",
+            "WARNING: This will delete ALL user profiles from the Realtime Database. This action cannot be undone. Are you absolutely sure?"
+        );
+
+        if (!confirmed) {
+            return;
+        }
+        
+        try {
+            const usersRef = ref(database, 'users');
+            await set(usersRef, null); // Set the 'users' node to null to clear all children
+            displayMessage('All user profiles cleared successfully!', 'success');
+            // The onValue listener will automatically update the UI
+        } catch (error) {
+            console.error("Error clearing all users:", error);
+            displayMessage('Failed to clear all user profiles: ' + error.message, "error");
+        }
     }
 
     // Custom confirm function (replaces window.confirm)
-    function confirm(message) {
-        // For simplicity and adherence to the prompt, using native confirm.
-        // In a real application, this should be replaced with a custom modal.
-        return window.confirm(message);
+    function showConfirmModal(title, message) {
+        return new Promise((resolve) => {
+            const modal = document.getElementById('customConfirmModal');
+            document.getElementById('confirmModalTitle').innerText = title;
+            document.getElementById('confirmModalMessage').innerText = message;
+
+            modal.classList.add('visible');
+
+            const confirmYes = modal.querySelector('.confirm-yes');
+            const confirmNo = modal.querySelector('.confirm-no');
+
+            const handleConfirm = (result) => {
+                modal.classList.remove('visible');
+                confirmYes.removeEventListener('click', yesListener);
+                confirmNo.removeEventListener('click', noListener);
+                resolve(result);
+            };
+
+            const yesListener = () => handleConfirm(true);
+            const noListener = () => handleConfirm(false);
+
+            confirmYes.addEventListener('click', yesListener);
+            confirmNo.addEventListener('click', noListener);
+        });
     }
+
+    // --- Event Listeners ---
+    document.addEventListener('DOMContentLoaded', () => {
+        // Initial load handled by onAuthStateChanged
+        
+        if (adminUsersListContainer) {
+            // Use event delegation for delete buttons
+            adminUsersListContainer.addEventListener('click', (e) => {
+                if (e.target && e.target.classList.contains('delete-user-btn')) {
+                    const uidToDelete = e.target.getAttribute('data-uid');
+                    if (uidToDelete) {
+                        deleteUser(uidToDelete);
+                    }
+                }
+            });
+        }
+
+        if (clearAllUsersBtn) {
+            clearAllUsersBtn.addEventListener('click', clearAllUsers);
+        }
+
+        if (backToHomeButton) {
+            backToHomeButton.addEventListener('click', () => {
+                window.location.href = 'homepage.html';
+            });
+        }
+
+        // The logout button and its listener are removed as per user request.
+        // If you need logout functionality, it should be handled from homepage.html
+        // or by directly redirecting to index.html which handles unauthenticated users.
+
+        // Update footer year dynamically
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    });
+
 </script>
 </body>
 </html>

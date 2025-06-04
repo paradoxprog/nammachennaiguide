@@ -428,7 +428,6 @@
     </div>
     <nav>
         <button id="backToHomeButton" class="action-button">Back to Home</button>
-        <!-- Logout button removed as per user request -->
     </nav>
     <div class="app-mode-header">
         <span>Mode: Admin (Realtime DB)</span>
@@ -472,18 +471,19 @@
     // Firebase SDK imports for Realtime Database and Auth
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
     import { getDatabase, ref, set, get, remove, onValue } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
-    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"; // signOut removed
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
 
     // --- Firebase Configuration ---
     // !!! IMPORTANT: Replace with your actual Firebase Realtime Database project configuration !!!
     const firebaseConfig = {
       apiKey: "AIzaSyA47Bvey7ewY21Xx-xoCIk3-gNr_X6OObw",
       authDomain: "nammachennaiguide.firebaseapp.com",
+      databaseURL: "https://nammachennaiguide-default-rtdb.firebaseio.com", // Ensure this is your Realtime Database URL
       projectId: "nammachennaiguide",
       storageBucket: "nammachennaiguide.firebasestorage.app",
       messagingSenderId: "441961341289",
       appId: "1:441961341289:web:004cf40f9d52f540889df8",
-      measurementId: "G-HR8QTESJBF"
+      // measurementId: "G-HR8QTESJBF" // Optional: if you use Google Analytics
     };
 
     // Initialize Firebase
@@ -563,10 +563,13 @@
         card.classList.add('admin-card', 'admin-user-card');
         card.setAttribute('data-uid', uid);
 
+        // Ensure createdAt is handled correctly for display
+        const createdAtDate = userData.createdAt ? new Date(userData.createdAt).toLocaleString() : 'N/A';
+
         card.innerHTML = `
             <h4>User: ${userData.name || 'N/A'}</h4>
             <p><strong>Email:</strong> ${userData.email || 'N/A'}</p>
-            <p><strong>Registered:</strong> ${new Date(userData.createdAt).toLocaleString()}</p>
+            <p><strong>Registered:</strong> ${createdAtDate}</p>
             <p><strong>UID:</strong> ${uid}</p>
             <div class="admin-actions">
                 <button class="action-button btn-danger delete-user-btn" data-uid="${uid}">Delete Profile</button>

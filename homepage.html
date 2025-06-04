@@ -13,6 +13,8 @@
             background-color: #F4F6F8; /* Very light cool grey */
             color: #2D3748; /* Dark, slightly desaturated blue/grey for text */
             line-height: 1.6;
+            position: relative; /* Needed for absolute positioning of the button */
+            min-height: 100vh; /* Ensure body takes full height */
         }
 
         .container {
@@ -187,9 +189,40 @@
             font-size: 0.85em;
             color: #718096; /* Medium-light grey for footer text */
         }
+
+        /* New style for the admin button container */
+        .admin-button-container {
+            position: absolute; /* Position relative to the nearest positioned ancestor (body) */
+            top: 20px; /* Adjust as needed for vertical position */
+            right: 20px; /* Adjust as needed for horizontal position */
+            z-index: 1000; /* Ensure it's above other content */
+        }
+
+        .admin-button-container button {
+            width: auto; /* Allow button to size based on content */
+            padding: 8px 15px; /* Smaller padding for a compact button */
+            margin: 0; /* Remove default margin */
+        }
+
+        /* Responsive adjustments for the admin button */
+        @media (max-width: 768px) {
+            .admin-button-container {
+                top: 10px;
+                right: 10px;
+            }
+            .admin-button-container button {
+                font-size: 0.9em;
+                padding: 6px 12px;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- Admin Mode button container -->
+    <div class="admin-button-container">
+        <button id="adminButton" class="btn-secondary">Admin Mode</button>
+    </div>
+
     <div class="container">
         <h2>Namma Chennai Guide</h2>
         <h3>Explore Chennai - Personalized Itinerary</h3>
@@ -215,7 +248,7 @@
                 <option value="art_culture">Art, Music & Culture</option>
                 <option value="food_experiences">Food Experiences (From Street to Fine Dining)</option>
                 <option value="shopping_malls">Shopping (Malls & Branded Stores)</option>
-                <option value_Sitemap">Local Markets & Bazaars</option>
+                <option value="local_markets">Local Markets & Bazaars</option>
                 <option value="nature_wildlife">Nature & Wildlife</option>
                 <option value="entertainment_leisure">Entertainment & Leisure</option>
                 <option value="day_trips">Day Trips from Chennai</option>
@@ -513,6 +546,11 @@
                 document.getElementById("feedbackMessage").innerText = "";
             }, 3000);
         }
+
+        // Admin button redirection
+        document.getElementById('adminButton').addEventListener('click', () => {
+            window.location.href = 'admin.html';
+        });
     </script>
     <footer>
         © 2025 Namma Chennai Guide. All Rights Reserved.
